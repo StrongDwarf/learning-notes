@@ -1,2 +1,9 @@
 # learning-notes
-记录前端学习笔记 Record front-end learning notes
+
+记录个人学习笔记，也作为博客没上线之前的对外博客
+目前笔记内容包括:
+* Javascript
+* Android
+* CS素养
+* 前端素养
+
