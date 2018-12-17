@@ -7,5 +7,5 @@
 * CS素养
 * 前端素养
 
-![CSDN图标](https://github.com/StrongDwarf/learning-notes/blob/master/test.png?raw=true "这是CSDN的图标")
+![CSDN图标](https://github.com/StrongDwarf/learning-notes/blob/master/public/img/test.png?raw=true "这是CSDN的图标")
 
