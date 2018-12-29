@@ -28,11 +28,38 @@
 * 请求行:包含了method URL Version信息, 其中method如get,post。URL如www.baidu.com Version如http/1.1
 * 请求头:请求头中可以包含多个参数,如 cache-control:no-cache；这里具体的可以放什么参数可以自己去百度
 * 请求体:请求体是数据存放的地方(如使用post请求向服务器发送数据时数据存放在请求体中)
+
+!["请求报文图片"](https://github.com/StrongDwarf/learning-notes/blob/master/public/img/1.png?raw=true "请求报文图片")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再来看一段get请求报文和一段post请求报文来分析两者的区别:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先看get请求<br>
+```
+GET http://download.microtool.de:80/somedata.exe?username=admin&password=123123
+Host:download.microtool.de
+Accept:*/*
+Pragma:no-cache
+Cache-Control:no-cache
+Referer:http://download.microtool.de/
+User-Agent:Mozilla/4.04[en](Win95;I;Nav)
+Range:bytes=554554-
+```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再看post请求<br>
+```
+POST /02_WEB_HTTP/index.html HTTP/1.1
+Accept: application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, */*
+Referer: http://localhost:8080/02_WEB_HTTP/form.html
+Accept-Language: zh-CN,en-US;q=0.7,ko-KR;q=0.3
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; InfoPath.3)
+Content-Type: application/x-www-form-urlencoded
+Accept-Encoding: gzip, deflate
+Host: localhost:8080
+Content-Length: 30
+Connection: Keep-Alive
+Cache-Control: no-cache 
+ 
+username=admin&password=123123
+```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;两者的区别只在于请求行中的method的不同(以及由于method的不同而导致的请求头中一些key的默认配置不同)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同样,在get请求中的body中存放数据和拼接url使用post传递数据都没有问题。<br>
