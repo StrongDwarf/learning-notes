@@ -29,7 +29,7 @@
 * 请求头:请求头中可以包含多个参数,如 cache-control:no-cache；这里具体的可以放什么参数可以自己去百度
 * 请求体:请求体是数据存放的地方(如使用post请求向服务器发送数据时数据存放在请求体中)
 
-["请求报文图片"](https://img-blog.csdn.net/20170114161157321?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjY5MjcyODU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast "请求报文图片")
+["请求报文图片"](https://github.com/StrongDwarf/learning-notes/blob/master/public/img/1.png?raw=true "请求报文图片")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再来看一段get请求报文和一段post请求报文来分析两者的区别:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先看get请求<br>
