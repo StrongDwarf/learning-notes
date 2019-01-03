@@ -1,7 +1,11 @@
 # js中的global对象
 
 和其他所有语言一样，javascript中当然也有全局对象-global。所有在全局作用域中定义的属性和函数,都是global对象的属性.
-而JS中的global值得值得注意的地方主要有三点
+而JS中的global值得值得注意的地方主要有4点
+ * 1:URL编码方法
+ * 2:eval()方法
+ * 3:Global对象的属性
+ * 4:Global对象在不同环境中的实现
 
 ### 1 URL编码方法.
 JS中的global对象提供了encodeURI()和encodeURIComponent()方法对URI(通用资源标志符)进行编码。
@@ -10,7 +14,7 @@ JS中的global对象提供了encodeURI()和encodeURIComponent()方法对URI(通�
  * 而encodeURIComponent()则会对它发现的任何非标准字符进行编码。
 
 两者使用时候的区别可以看如下代码
-```
+``` JavaScript
 let uri = "http://xiaobaicai.com/hello world";
 encodeURI(uri);     //http://xiaobacai.com/hello%20world
 encodeURIComponent(uri);    //http%3A%2F%2F:/xiaobaicai.com/hello%20world
@@ -18,7 +22,7 @@ encodeURIComponent(uri);    //http%3A%2F%2F:/xiaobaicai.com/hello%20world
 
 就使用而言,encodeURIComponent()使用的更多,因为在实践中常见的是对查询字符串参数而不是对基础URI进行编码.
 对编码后的URI字符串进行解码可以使用decodeURI()和decodeURIComponent()方法解码
-###eval()方法
+###2 eval()方法
 
 eval()方法可以称为是JavaScript中最强大的一个方法了,其作用相当于一个JavaScript编译器,接收一个参数,并将其作为一串JavaScript代码执行。
 eval()方法中执行的代码,代码执行所在的作用域仍然是和eval()函数所在的作用域是一样的。
@@ -28,7 +32,7 @@ eval("console.log(a)");     //1
 ```
 值得注意的是eval()函数容易引发安全性问题,所以在严格模式下,该方法已经被禁用了
 
-###Global对象的属性
+###3 Global对象的属性
 Global对象还包含一些属性,其包括3个特殊值和一些构造函数如:
  * undefined    特殊值
  * NaN      特殊值
@@ -49,7 +53,7 @@ Global对象还包含一些属性,其包括3个特殊值和一些构造函数如
  * TypeError
  * URIError
 
-###Global对象的实现
+###4 Global对象的实现
 Global对象在web客户端的实现是window，在服务器端(node环境中)的实现还是global.
 所以,在客户端为全局对象添加属性,可以设置window.propertyName，而在服务器端设置全局属性可以设置global.propertyName。如下:
 ``` JavaScript
