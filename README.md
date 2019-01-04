@@ -8,12 +8,15 @@
 [JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
 [flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
 
-# 时间分类
-## 2018年 (#2018)
-### 11月 (#2018-11)
-### 12月 (#2018-12)
+### 时间分类
+[2018年](#2018)
+ * [11月](#2018-11)
+ * [12月](#2018-12)
+[2019年](#2019)
+ * [1月](#2019-1)
 
-#时间分类
+
+# 时间分类
 ## 2018
 ### 2018-11
 [JavaScript中的RegExp类型.md](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的RegExp类型.md)
@@ -55,7 +58,7 @@
 
 [开始学习flutter](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/12月/开始学习flutter.md)
 
-## 2019年
+## 2019
 ### 2019-1
 [计算机图形学复习](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/计算机图形学复习.md)
 
