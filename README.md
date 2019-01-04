@@ -7,5 +7,8 @@
 * CS素养
 * 前端素养
 
-![CSDN图标](https://github.com/StrongDwarf/learning-notes/blob/master/public/img/test.png?raw=true "这是CSDN的图标")
+##2018年
+
+###11月
+[](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的RegExp类型.md "avaScript中的RegExp类型.md")
 
