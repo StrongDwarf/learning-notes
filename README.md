@@ -2,11 +2,11 @@
 
 记录个人学习笔记，也作为博客没上线之前的对外博客
 
-#标签分类
-[CS素养](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/CS素养)
-[Android](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/Android)
-[JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
-[flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
+# 标签分类
+ * [CS素养](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/CS素养)
+ * [Android](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/Android)
+ * [JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
+ * [flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
 
 ### 时间分类
 [2018年](#2018)
