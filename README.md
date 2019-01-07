@@ -2,11 +2,15 @@
 
 记录个人学习笔记，也作为博客没上线之前的对外博客
 
+#### 重要的事情写在前头:因个人知识水平有限,如博客中发现错误，欢迎纠正,热烈欢迎纠正,强烈欢迎纠正(重要的事情说3遍)  
+
 # 标签分类
  * [CS素养](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/CS素养)
  * [Android](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/Android)
  * [JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
  * [flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
+ * [java](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JAVA)
+ * [c/c++](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/)
 
 ### 时间分类
 [2018年](#2018)
@@ -25,6 +29,8 @@
 [js中的global对象](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/js中的global对象.md)
 
 [使用form-data进行post请求与直接使用post请求的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/使用form-data进行post请求与直接使用post请求的区别.md)
+
+[引用和指针的区别以及引用在高级语言中的实现.md](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/引用和指针的区别以及引用在高级语言中的实现.md)
 
 ## 2018
 ### 2018-12
