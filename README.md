@@ -10,7 +10,7 @@
  * [JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
  * [flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
  * [java](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JAVA)
- * [c/c++](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/)
+ * [c/c++](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/C:C%2B%2B)
 
 ### 时间分类
 [2018年](#2018)
