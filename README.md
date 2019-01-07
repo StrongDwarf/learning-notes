@@ -18,18 +18,15 @@
 
 
 # 时间分类
+## 2019
+### 2019-1
+[计算机图形学复习](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/计算机图形学复习.md)
+
+[js中的global对象](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/js中的global对象.md)
+
+[使用form-data进行post请求与直接使用post请求的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/使用form-data进行post请求与直接使用post请求的区别.md)
+
 ## 2018
-### 2018-11
-[JavaScript中的RegExp类型.md](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的RegExp类型.md)
-
-[JavaScript中的数组对象和方法](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的数组对象和方法)
-
-[变量%2C作用域和内存问题](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/变量%2C作用域和内存问题.md)
-
-[程序运行中堆内存与栈内存的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/程序运行中堆内存与栈内存的区别.md)
-
-[JavaScript中的变量，作用域和内存问题小结](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的变量，作用域和内存问题小结.md)
-
 ### 2018-12
 [post与get的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/12月/post与get的区别.md)
 
@@ -59,8 +56,14 @@
 
 [开始学习flutter](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/12月/开始学习flutter.md)
 
-## 2019
-### 2019-1
-[计算机图形学复习](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/计算机图形学复习.md)
+### 2018-11
+[JavaScript中的RegExp类型.md](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的RegExp类型.md)
 
-[js中的global对象](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/js中的global对象.md)
+[JavaScript中的数组对象和方法](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的数组对象和方法)
+
+[变量%2C作用域和内存问题](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/变量%2C作用域和内存问题.md)
+
+[程序运行中堆内存与栈内存的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/程序运行中堆内存与栈内存的区别.md)
+
+[JavaScript中的变量，作用域和内存问题小结](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的变量，作用域和内存问题小结.md)
+
