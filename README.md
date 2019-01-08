@@ -32,7 +32,9 @@
 
 [引用和指针的区别以及引用在高级语言中的实现](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/引用和指针的区别以及引用在高级语言中的实现.md)
 
-[android文件存储](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/android文件存储.md)
+[Android文件存储](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/android文件存储.md)
+
+[Android权限管理](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/android权限管理.md)
 
 ## 2018
 ### 2018-12
