@@ -1,12 +1,12 @@
 # Android文件存储  
 
 在开发应用程序时,文件存储是必不可少要用到的功能,Android开发中同样如此,经过查阅网络上的资料后,对Android中文件存储方面的知识总结如下:
-  [内存,内部存储,外部存储的区别](#内存,内部存储,外部存储的区别)  
-  [内部存储](#内部存储)
-  [外部存储](#外部存储)
-  [访问内部存储和外部存储的API](#访问内部存储和外部存储的API)
-  [文件存储中几点容易让人迷惑的地方](#文件存储中几点容易让人迷惑的地方)
-  [一个简便的文件操作工具类](#一个简便的文件操作工具类)
+ * [内存,内部存储,外部存储的区别](#内存,内部存储,外部存储的区别)  
+ * [内部存储](#内部存储)
+ * [外部存储](#外部存储)
+ * [访问内部存储和外部存储的API](#访问内部存储和外部存储的API)
+ * [文件存储中几点容易让人迷惑的地方](#文件存储中几点容易让人迷惑的地方)
+ * [一个简便的文件操作工具类](#一个简便的文件操作工具类)
 
 
   需要注意的是,因为考虑到现在android低版本(android6.0和6.0之前的版本)的使用率已经很低了,所以本文中的内容默认是对android高版本适用的,未考虑低版本的兼容性。
@@ -334,10 +334,10 @@ public class SDCardHelper{
 ```
 
 文章参考：
-  [彻底了解android中的内部存储于外部存储](https://www.cnblogs.com/jingmo0319/p/5586559.html)
-  [彻底搞懂Android文件存储--内部存储,外部存储以及各种存储路径解惑](https://blog.csdn.net/u010937230/article/details/73303034)
-  [Android数据存储的五种方法汇总](https://www.cnblogs.com/chengzhengfu/p/4582515.html)
-  [Android内部存储和外部存储解析](https://www.jianshu.com/p/31670805f32a)
-  [手机内部存储空间](https://zhidao.baidu.com/question/134594722405280085.html)
-  [Android中的文件操作的9个实例](https://blog.csdn.net/rodulf/article/details/50950233)
+ * [彻底了解android中的内部存储于外部存储](https://www.cnblogs.com/jingmo0319/p/5586559.html)
+ * [彻底搞懂Android文件存储--内部存储,外部存储以及各种存储路径解惑](https://blog.csdn.net/u010937230/article/details/73303034)
+ * [Android数据存储的五种方法汇总](https://www.cnblogs.com/chengzhengfu/p/4582515.html)
+ * [Android内部存储和外部存储解析](https://www.jianshu.com/p/31670805f32a)
+ * [手机内部存储空间](https://zhidao.baidu.com/question/134594722405280085.html)
+ * [Android中的文件操作的9个实例](https://blog.csdn.net/rodulf/article/details/50950233)
 
