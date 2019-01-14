@@ -36,6 +36,8 @@
 
 [Android权限管理](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/Android权限管理.md)
 
+[Android中使用Handler](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/使用Handler.md)
+
 ## 2018
 ### 2018-12
 [post与get的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/12月/post与get的区别.md)
