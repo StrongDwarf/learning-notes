@@ -41,6 +41,9 @@
 [git常用命令](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/git常用命令.md)
 
 [强引用,软引用,弱引用和虚引用](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/强引用,软引用,弱引用和虚引用.md)
+
+[Android动态添加和删除控件](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/Android动态添加和删除控件.md)
+
 ## 2018
 ### 2018-12
 [post与get的区别](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/12月/post与get的区别.md)
