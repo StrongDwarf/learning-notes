@@ -251,5 +251,36 @@ ES6中引入了字符串补全长度的功能。如果某个字符串不够指�
 
 ### 3.7 模板字符串
 
+模板字符串也是ES6中新引入的,
 
+模板字符串用于替换以前使用字符串拼接的场景，如下
+
+``` javascript
+let name = "xiaobaicai"
+let str = 'my name is ' + name
+console.log(str)   //my name is xiaobaicai
+```
+
+以上场景可以使用模板字符串实现
+
+``` javascript
+let name = "xiaobaicai"
+let str = `my name is ${name}`
+console.log(str)   //my name is xiaobaicai
+```
+
+模板字符串中使用${}包含变量名称，在读取str变量时,编译器在变量所在作用域链中查找变量name，并整合到str中
+
+模板字符串的${}中不单单可以包含变量名,还可以包含JavaScript表达式,函数名等。
+
+``` javascript
+let name = "xiaobaicai"
+let str1 = `my name is ${'xiaobaicai'}`
+console.log(str1)  //my name is xiaobaicai
+
+function spellFunc(word){
+    return word.split("").join("-")
+}
+let str2 = `${name} is spelled as ${spellFunc(name)}`
+```
 
