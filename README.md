@@ -24,7 +24,9 @@
 # 时间分类
 ## 2019
 ### 2019-2
-[JS中的String类型](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/JS中的String类型.md)
+[JS中的String类型](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JS中的String类型.md)
+
+[JS中的Math对象](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JS中的Math对象.md)
 
 ### 2019-1
 [计算机图形学复习](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/1月/计算机图形学复习.md)
