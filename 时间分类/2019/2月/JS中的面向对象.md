@@ -1,11 +1,14 @@
 # JS中的面向对象
 
- * [1,对象属性](#1,对象属性)
- * [2,创建对象](#2,创建对象)
- * [3,继承](#3,继承)
- * [4,ES6中对对象的扩充](#4,ES6中对对象的扩充)
+## 目录
 
-##1,对象属性
+ * [1,对象属性](# 1,对象属性)
+ * [2,创建对象](#2,创建对象)
+ * [3,继承](# 3,继承)
+ * [4,ES6中对对象的扩展](# 4,ES6中对对象的扩展)
+ * [5,总结](# 5,总结)
+
+## 1,对象属性
 
 ### 1.1 属性类型
 
@@ -486,5 +489,381 @@ SubType.prototype.sayAge = function(){
 原型式继承是指在基于一个现有的对象，在该对象的基础上对该对象进行装饰从而实现继承。
 其基本思想如下:
 
-``` 
+``` javascript
+function object(o){
+    function F(){}
+    F.prototype = o
+    return new F()
+}
+```
+
+在object()函数内部,先创建了一个临时性的构造函数，然后将传入的对象作为这个构造函数的原型，最后返回了这个临时类型的一个新实例。从本质上讲，object()对传入其中的对象执行了一次浅复制。来看下面的例子
+
+``` javascript
+var person = {
+    name:'xiaobaicai',
+    friends:['xiaohei','xiaobai']
+}
+
+var anotherPerson = object(person)
+anotherPerson.name = 'xiaohuihui'
+anotherPerson.friends.push("xiaoheihei")
+
+var yetAnotherPerson = object(person)
+anotherPerson.name = 'xiaoheiehi'
+yetAnotherPerson.friends.push("xiaohuihui")
+
+console.log(person.friends)     //['xiaohei','xiaobai','xiaoheihei','xiaohuihui']
+```
+
+这种原型式继承的基本思想是:将基本类型值属性作为实例独有属性，将引用类型值属性作为对象共有的属性使用。
+
+原型式继承在ES5中可以直接使用Object.create()方法实现，该方法接收2个参数,一个用做新对象原型的对象和(可选的)一个为新对象定义额外属性的对象。在传入一个参数的情况下，Object.create()与object()方法的行为相同
+
+``` javascript
+var person = {
+    name:'xiaobaicai',
+    friends:['1','2']
+}
+
+var anotherPerson = Object.create(person,{
+    name:{
+        value:'xiaohuihui'
+    }
+})
+anotherPerson.friends.push("xiaoheihei")
+
+var yetAnotherPerson = Object.create(person,{
+    name:{
+        value:'xiaoheihei'
+    }
+})
+yetAnotherPerson.friends.push("xiaohuihui")
+
+console.log(person.friends)     //['1','2','xiaoheihei','xiaohuihui']
+```
+
+### 3.5 寄生式继承
+
+寄生式继承的思路与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真的是它做了所有工作一样返回对象。如下:
+
+``` javascript
+function createAnother(original){
+    var clone = object(original)    //通过调用函数创建一个新的对象
+    clone.sayHi = function(){
+        console.log("hi")
+    }
+    return clone
+}
+```
+
+在这个例子中，createAnother()函数接收了一个参数，也就是将要作为新对象基础的对象。然后，把这个对象(original)传递给object()函数，将返回的结果赋值给clone。再为clone对象添加一个新方法sayHi(),最后返回clone对象。可以像下面这样来使用createAnother()函数:
+
+``` javascript
+var person = {
+    name:'xiaobaicai',
+    age:23
+}
+var anotherPerson = createAnother(person)
+anotherPerson.sayHi()   
+```
+
+### 3.6 寄生组合式继承
+
+前面说过，组合继承是JavaScript最常用的继承模式;不过它也有自己的不足。组合继承最大的问题就是无论什么情况下，都会调用两次超类型构造函数，一次是在创建子类型的时候，一次是在子类型构造函数内部。没错，子类型最终会包含超类型对象的全部实例属性，但我们不得不在调用子类型构造函数时重写这些属性。组合继承的例子如下:
+
+``` javascript
+function SuperType(name){
+    this.name = name
+}
+SuperType.prototype.sayName = function(){
+    console.log(this.name)
+}
+
+function SubType(name,age){
+    SuperType.call(this,name)           //第二次调用SuperType
+    this.age = age
+}
+
+SubType.prototype = new SuperType()   //第一次调用SuperType
+SubType.prototype.constructor = SubType
+SubType.prototype.sayAge = function(){
+    console.log(this.age)
+}
+```
+
+这种继承方式一般来说没什么大问题，但是子类型中的属性因为调用了两次构造函数所以分别在生成的对象和对象的原型中都存在，如下:
+
+``` JavaScript
+var subInstance = new SubType('xiaobaicai',22)
+console.log(subInstance.name)   //'xiaobaicai'
+console.log(subInstance.prototype.name)     //undefined
+```
+
+其中对象原型中的属性被对象的属性覆盖了。
+寄生组合式继承就能够解决这种问题:所谓寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混合形式来继承方法。其背后的基本思路是:不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非是超类型的一个副本而已。本质上，就是使用寄生式继承来继承超类型的原型，然后再将结果指定给子类型的原型。寄生组合式继承的基本模式如下:
+
+``` javascript
+function inheritPrototype(subType,superType){
+    var prototype = object(superType.prototype)     //创建对象
+    prototype.constructor = subType                 //增强对象
+    subType.prototype = prototype                   //指定对象
+}
+```
+
+实际使用如下:
+
+``` javascript
+function SuperType(name){
+    this.name = name
+}
+SuperType.prototype.sayName = function(){
+    console.log(this.name)
+}
+
+function SubType(name,age){
+    SuperType.call(this,name)
+    this.age = age
+}
+inheritPrototype(SubType,SuperType)
+subType.prototype.sayAge = function(){
+    console.log(this.age)
+}
+```
+
+## 4,ES6中对对象的扩展
+
+ES6中对对象的扩充主要分2方面的扩充,一是Object对象上方法和属性的扩展，二是新增class语法
+
+### 4.1 Object对象上方法和属性的扩展
+
+#### 4.1.1 属性的简洁表示法
+
+在ES5中,我们表示一个对象的属性只能如下一样表示
+
+``` javascript
+var o = {
+    属性名1:属性值1,
+    属性名2:属性值2,
+    ...
+}
+```
+
+而在ES6中，如下的情况可以简洁表示如下
+
+``` javascript
+//ES5
+var name = 'xiaobaicai'
+var person = {
+    name:name
+}
+//ES6
+var name = 'xiaobaicai'
+var person = {
+    name
+}
+```
+
+在ES6中对象中的函数属性也可以简洁表示如下
+
+``` javascript
+//ES5
+var person = {
+    sayName:function(name){
+        console.log(name)
+    }
+}
+//ES6
+var person = {
+    sayName(name){
+        console.log(name)
+    }
+}
+```
+
+#### 4.1.2 属性名表达式
+
+ES6新增使用表达式作为属性名,不过必须放在[]中
+
+``` javascript
+var a = 'name'
+var person = {
+    [a]:'xiaobaicai',
+    ['a'+'ge']:23
+}
+```
+
+#### 4.1.3 方法的name属性
+
+函数的name属性返回函数名。对象方法也是函数，因此也有name属性。返回的name有以下几种情况
+
+ * 1:如果对象的方法使用的取值函数(getter)和存值函数(setter),则name属性不是在该方法上面，而是在该方法属性的描述对象的get和set属性上面，返回值是方法名前加get和set
+ * 2:bind方法创建的函数，name属性返回"bound"加上原函数的名字
+ * 3:Function构造函数创造的函数，name属性返回"anonymous"
+ * 4:如果对象是一个Symbol值，那么name属性返回的是这个Symbol值的描述
+ * 5:除上面的几种情况之外，都返回函数名称
+
+如下:
+
+``` javascript
+//有取值器的函数方法
+var obj1 = {
+    get foo(){},
+    set foo(value){}
+}
+var descriptor = Object.getOwnPropertyDescriptor(obj1,'foo')
+descriptor.get.name         //"get foo"
+
+//bind方法创建的函数
+var sayHello = function(){}
+sayHello.bind().name        //"bound sayHello"
+
+//Function构造函数创建的函数
+var func1 = new Function("console.log('hello world')")
+func1.name                  //"anonymous"
+
+//对象是Symbol值
+var key1 = Symbol('function1')
+var key2 = Symbol()
+var obj2 = {
+    [key1](){},
+    [key2](){}
+}
+obj2[key1].name         //"[function1]"
+obj2[key2].name         //""
+
+//一般情况
+function sayHi(){}
+sayHi.name              //"sayHi"
+```
+
+#### 4.1.4 Object.assign()
+
+Object.assign(original，[obj1,obj2,obj3,...])用于实现对象的浅复制。会将obj1,obj2,obj3...这些对象中的可遍历属性复制到original中。并返回复制后的original,在复制过程中，如果有相同的属性名，则后面的会覆盖前面的。如下
+
+``` javascript
+var person1 = {
+    age:23,
+    friends:['1','2']
+}
+var person2 = {
+    name : 'xiaobaicai'
+}
+var person3 = {
+    name : 'xiaohei'
+}
+Object.assign(person2,person1)
+Object.assign(person3,person1)
+person2.friends.push('3')
+console.log(person3.friends)    //['1','2','3']
+```
+
+当Object.assign()只有一个参数时,会将该参数转化为Object对象，并返回该对象。如果是无法转为Object对象的参数则报错
+
+``` javascript
+Object.assign(3)        //Number{3}
+Object.assign(undefined)    //Error
+Object.assign(null)         //Error
+```
+
+#### 4.1.5 __proto__属性,Object.setPrototypeOf(),Object.getPrototyprOf()
+
+__proto__属性用来读取和设置对象的prototype对象，目前所有浏览器都部署了这个属性。
+Object.setPrototypeOf()用来设置对象的prototype对象
+Object.getPrototypeOf()用来读取对象的prototype对象
+
+__proto__前后的双下划线说明了它是一个内部属性，不建议直接使用该属性，建议使用setPrototypeOf()和getPrototypeOf()进行写和读
+
+``` javascript
+//创建新对象
+var person = {
+    name:'xiaobaicai'
+}
+//创建对象的proto
+var proto = {}
+//设置__proto__
+Object.setPrototypeOf(person,proto)
+proto.age = 22
+console.log(Object.getPrototypeOf(person))      //{age:22}
+```
+
+#### Object.keys(),Object.values(),Object.entries()
+
+Object.keys()返回一个包含对象中所有可遍历对象的键的数组
+Object.values()返回一个包含对象中所有可遍历对象的值的数组
+Object.entries()返回一个包含对象中所有可遍历对象的键值的数组
+
+``` javascript
+var arr = ['a','b','c','d']
+Object.keys(arr)    //[0,1,2,3]
+Object.values(arr)  //['a','b','c','d']
+Object.entries(arr) //[[0,'a'],[1,'b'],[2,'c'],[3,'d']]
+```
+
+#### Object.getOwnPropertyDescriptors()
+
+ES5中有Object.getOwnPropertyDescriptor()用来返回某个对象属性的描述对象。
+Object.getOwnPropertyDescriptors()则是返回对象的所有自身属性(非继承属性)的描述对象
+
+``` javascript
+var person = {
+    name:'xiaobaicai',
+    age:23
+}
+console.log(Object.getOwnPropertyDescriptors())
+/*
+{
+    name:{
+        value:'xiaobaicai',
+        writable:true,
+        enumerable:true,
+        configurable:true
+    },
+    age:{
+        value:'xiaobaicai',
+        writable:true,
+        enumerable:true,
+        configurable:true
+    }
+}
+*/
+```
+
+### 4.2 ES6中新增的class继承
+
+OO语言中基本都有的东西..使用方法如下:
+
+``` javascript
+class Point{
+    constructor(x,y){
+        this.x = x
+        this.y = y
+    }
+}
+class ClassPoint extends Point{
+    constructor(x,y,color){
+        super(x,y)
+        this.color
+    }
+    getColor(){
+        return this.color
+    }
+    setColor(newColor){
+        this.color = newColor
+    }
+}
+```
+
+## 5,总结
+
+写这篇博客主要学习了JS中的面相对象的东西,其中主要的只是可以分为4个部分:
+第一部分 属性:学习了对象的属性，对象的属性分为数据属性和访问器属性，其中两个不同的数据属性拥有的描述符也不一样
+第二部分 创建对象:学习了创建对象的几种模式,如工厂模式,构造函数模式.原型模式,组合使用原型模式和构造函数模式,动态原型模式,寄生构造函数模式,
+第三部分 继承:这部分首先了解了什么是原型链，然后学习了几种实现继承的模式，分别是:借用构造函数,组合继承,原型式继承,寄生式继承,寄生组合式继承,
+其中,借用构造函数简单的调用一次SuperType的构造函数,组合继承则不单单调用SuperType的构造函数,还将SuperType.prototype赋值给SubType.prototype，原型式继承则在一个原型上进行赋值,其基本思想是浅复制原型对象，然后再复制后的对象上做修改，返回修改后的对象，寄生式继承与原型式继承类型，同样需要复制原型对象，但并不对复制后的对象进行修改，而是对复制后的对象进行增强。寄生组合式继承,寄生组合式继承则是在组合继承上做了改进，组合继承给SubType.prototype赋值的是 new SuperType()， 而寄生组合式继承给SubType.prototype赋值的
+仅仅是SuperType.prototype
+
+
+
+
 
