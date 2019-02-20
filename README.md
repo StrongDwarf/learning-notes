@@ -24,6 +24,8 @@
 # 时间分类
 ## 2019
 ### 2019-2
+[ES6中Set和Map](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/ES6中Set和Map.md)
+
 [ES6数组扩展](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/ES6数组扩展.md)
 
 [JS中的函数表达式](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JS中的函数表达式.md)
