@@ -2,6 +2,9 @@
 
 记录个人学习笔记，也作为博客没上线之前的对外博客
 
+#### 原博客地址: 
+[https://blog.csdn.net/qq_39263663](https://blog.csdn.net/qq_39263663)
+
 #### 重要的事情写在前头:因个人知识水平有限,如博客中发现错误，欢迎纠正,热烈欢迎纠正,强烈欢迎纠正(重要的事情说3遍)  
 
 # 标签分类
@@ -24,6 +27,8 @@
 # 时间分类
 ## 2019
 ### 2019-2
+[JavaScript客户端检测](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JavaScript客户端检测.md)
+
 [BOM](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/Bom.md)
 
 [《JavaScript设计模式》复习](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/《JavaScript设计模式》复习.md)

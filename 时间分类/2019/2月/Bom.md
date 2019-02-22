@@ -11,7 +11,7 @@ ECMAScript是JavaScript的核心，但如果要在Web中使用JavaScript，那�
 * [navigator对象](# navigator对象)
 * [screen对象](# screen对象)
 * [history对象](# history对象)
-* [参考](# 参考)
+* [参考](# 参考)f
 
 ## window对象
 
