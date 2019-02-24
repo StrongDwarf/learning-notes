@@ -27,6 +27,8 @@
 # 时间分类
 ## 2019
 ### 2019-2
+[使用事件处理程序时的内存和性能问题](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/使用事件处理程序时的内存和性能问题.md)
+
 [移动端事件](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/移动端事件.md)
 
 [HTML5事件](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/HTML5事件.md)
