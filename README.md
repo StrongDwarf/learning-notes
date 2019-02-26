@@ -27,6 +27,8 @@
 # 时间分类
 ## 2019
 ### 2019-2
+[函数节流](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/函数节流.md)
+
 [JS中关于函数的一些操作](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JS中关于函数的一些操作.md)
 
 [浏览器中的那些跨域技术](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/浏览器中的那些跨域技术.md)
