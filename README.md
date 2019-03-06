@@ -24,9 +24,23 @@
  * [1月](#2019-1)
  * [2月](#2019-2)
 
+## 置顶
+[小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的JS编程实践总结(持续更新).md)
+
 # 时间分类
+
 ## 2019
+
+### 2019-3
+[小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的JS编程实践总结(持续更新).md)
+
+[小白菜的前端性能优化总结](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的前端性能优化总结.md)
+
+[JS中的模块化](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/JS中的模块化.md)
+
 ### 2019-2
+[JS中的模块化](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JS中的模块化.md)
+
 [函数节流](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/函数节流.md)
 
 [JS中关于函数的一些操作](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/2月/JS中关于函数的一些操作.md)
