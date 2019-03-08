@@ -1,5 +1,39 @@
 # 小白菜的JS编程实践总结(持续更新)
 
+前端性能优化请点[这里](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的前端性能优化总结.md),这篇博客只记录编码实践。
+
+[目录](#目录)
+
+* [代码约定](#代码约定)
+  * [可读性](#可读性)
+  * [变量命名](#变量命名)
+  * [变量类型透明](#变量类型透明)
+* [编程实践](#编程实践)
+  * [解耦CSS/JavaScript](#解耦CSS/JavaScript)
+  * [解耦应用逻辑/事件处理程序](#解耦应用逻辑/事件处理程序)
+  * [尊重对象所有权](#尊重对象所有权)
+  * [避免全局变量](#避免全局变量)
+  * [避免与null进行比较](#避免与null进行比较)
+  * [使用常量](#使用常量)
+  * [使用内部变量引用外部变量](#使用内部变量引用外部变量)
+  * [避免with语句](#避免with语句)
+  * [避免不必要的属性查找](#避免不必要的属性查找)
+  * [优化循环](#优化循环)
+  * [避免双重解释](#避免双重解释)
+  * [使用switch替代复杂的if~else语句](#使用switch替代复杂的if~else语句)
+  * [最小化语句数](#最小化语句数)
+  * [最小化现场更新](#最小化现场更新)
+  * [使用innerHTML代替JS创建DOM](#使用innerHTML代替JS创建DOM)
+  * [使用事件代理](#使用事件代理)
+  * [使用arguments.callee解耦递归函数](#使用arguments.callee解耦递归函数)
+  * [使用尾调用优化递归](#使用尾调用优化递归)
+  * [使用函数懒加载避免重复判断](#使用函数懒加载避免重复判断)
+  * [使用函数节流避免重复执行](#使用函数节流避免重复执行)
+  * [使用模板字符串代替字符串拼接](#使用模板字符串代替字符串拼接)
+  * [分离样式的读写避免重绘重排](#分离样式的读写避免重绘重排)
+* [未来可能被支持的优秀编程实践]
+  * [使用可选链式调用访问元素属性](#使用可选链式调用访问元素属性)
+
 ## 代码约定
 
 ### 可读性
@@ -54,6 +88,12 @@ CSS对JavaScript的松散耦合
 
 ``` javascript
 element.className = "edit"
+```
+
+如果一定要通过设置style来修改元素样式,可以使用cssText修改。如下:
+
+``` javascript
+element.style.cssText = "color:red;background-color:blue"
 ```
 
 ### 解耦应用逻辑/事件处理程序
@@ -559,6 +599,10 @@ DOM变动和样式变动都会触发重新渲染,但是游览器会尽量将所�
 * getComputedStyle()
 * getBoundingClientRect
 
+## 未来可能被支持的优秀编程实践
+
+### 使用可选链式调用访问元素属性
+
 
 
 
@@ -569,5 +613,18 @@ DOM变动和样式变动都会触发重新渲染,但是游览器会尽量将所�
 * [《javascript高级程序设计》]
 * [《代码大全》]
 * [《javascript之美》]
+* [《编写可维护的JavaScript》]
 * [小白菜的博客](https://github.com/StrongDwarf/learning-notes)
 * [【高性能JS】重绘、重排与浏览器优化方法](https://juejin.im/post/5c7f80f4e51d4541c00218b0)
+
+
+``` javascript
+
+function a(){
+    var scope = "a scope"
+    return function(){
+        console.log(scope)
+    }
+}
+var scope = "global scope"
+a()()

@@ -228,3 +228,218 @@ def(
     }
 )
 ```
+
+所以,一般情况下,我们可以直接使用splice()函数对数组进行修改。
+同时,也可以使用filter,concat,slice方法,返回的数组将是一个不同的实例，我们可以用新的数组替换原来的数组。
+
+v-for同时还可以和Vue.js提供的内置过滤器或排序数据一起使用,如filterBy，orderBy
+
+### v-text
+
+v-text指令可以更新元素的textContent。在内部,{{Mustache}}差值也被编译为textNode的一个v-text指令,代码示例如下:
+
+``` html
+<span v-text="msg"></span><br/>
+<!-- same as -->
+<span>{{msg}}</span>
+```
+
+### v-html
+
+v-html指令可以更新元素的innerHTML。内容按普通HTML插入--数据绑定被忽略。如果想复用模板片段,则应该使用partials。
+
+### v-bind
+
+v-bind指令用于响应更新HTML特性,将以个或多个attribute,或者一个组件prop动态绑定到表达式。v-bind可以简写为:
+
+``` html
+<img v-bind:src="imageSrc">
+<!-- 缩写 -->
+<img :src="imageSrc">
+```
+
+在绑定prop时,prop必须在子组件中声明。可以用修饰符指定不同的绑定类型。修饰符为:
+
+* .sync:双向绑定，只能用于prop绑定
+* .once:单次绑定，只能用于prop绑定
+* .camel:将绑定的特性名字转换回驼峰命名。只能用于普通HTML特性的绑定。
+
+### v-on
+
+v-on指令用于绑定事件监听器。事件类型由参数指定；表达式可以是一个方法的名字或一个内联语句;如果没有修饰符,也可以省略。
+
+使用在普通元素上时,只能监听元素DOM事件；使用在自定义元素组件上时,也可以监听子组件触发的自定义事件。
+
+在监听元素DOM事件时,如果只定义一个参数，DOM event为事件的唯一参数;如果在内敛语句处理器中访问原生DOM事件,则可以用特殊变量$event把它传入方法。
+
+Vue.js 1.0.11及之后的版本在监听自定义事件时,内敛语句可以访问一个$arguments属性,它是一个数组,包含了传给子组件的$emit回调的参数
+
+``` html
+<!-- 方法处理器 -->
+<button v-on:click="doThis"></button>
+<!-- 内联语句 -->
+<button v-on:click="doThat('hello',$event)"></button>
+<!-- 缩写 -->
+<button @click="doThis"></button>
+```
+
+v-on后面不仅可以跟参数,还可以增加修饰符
+
+* .stop:调用event.stopPropagation()
+* .prevent:调用event.preventDefault()
+* .capture:添加事件监听器时使用capture(捕获)模式
+* .self:只当事件是从侦听器绑定的元素本身触发时才触发回调
+* .{keyCode|keyAlias}:只在指定按键上触发回调。
+
+``` html
+<!-- 停止冒泡 -->
+<button @click.stop="doThis"></button>
+<!-- 阻止默认行为 -->
+<button @click.prevent="doThis"></button>
+<!-- 阻止默认行为,没有表达式 -->
+<form @submit.prevent></form>
+<!-- 串联修饰符 -->
+<button @click.stop.prevent="doThis">stop</button>
+<!-- 键修饰符,键别名 -->
+<input @keyup.enter="onEnter">
+```
+
+### v-ref
+
+在子组件上注册一个子组件的索引,便于直接访问。不需要表达式,必须提供参数id。可以通过父组件的$refs对象访问子组件。
+
+当v-ref和v-for一起使用时，注册的值将是一个数组,包含所有的子组件,对应于绑定数组;如果v-for使用在一个对象上，注册的值将是一个对象，包含所有的子组件，对应于绑定对象。
+
+值得注意的是:因为HTML不区分大小写,camelCase风格的名字比如v-ref:someRef将全部转换为小写。可以用v-ref:some-ref设置this.$refs.someRef
+
+### v-el
+
+为DOM元素注册一个索引,方便通过所属实例的$els访问这个元素,可以用v-el:some-el设置this.$els.someEl。
+
+``` html
+<span v-el:msg>hello</span>
+<span v-el:other-msg>world</span>
+```
+
+通过this.$els获取相应的DOM元素
+
+``` javascript
+this.$els.msg.textContent  //-> "hello"
+this.$els.otherMsg.textContent // -> "world"
+```
+
+### v-pre
+
+编译时跳过当前元素和它的子元素.可以用来显示原始Mustache标签。跳过大量没有指令的节点会加快编译
+
+### v-cloak
+
+v-clock这个指令保持在元素上直到关联实例结束编译。用法如下:
+
+``` html
+<style>
+    [v-cloak]{
+        display:none;
+    }
+</style>
+<div v-vloak>
+    {{message}}
+</div>
+```
+
+## 自定义指令
+
+### 基础
+
+Vue.js用Vue.directive(id,definition)方法注册一个全局自定义指令,它接受两个参数:指令ID与定义对象。也可以用组件的directive选项注册一个局部自定义指令。
+
+#### 钩子函数
+
+Vue.js提供了几个钩子函数(都是可选的,相互之间没有制约关系)
+
+* bind:只调用一次,在指令第一次绑定到元素上时使用
+* update:在bind之后立即以初始值为参数第一次调用，之后每当绑定值变化时调用，参数为新值与旧值
+* unbind:只调用一次,在指令从元素上解绑时调用
+
+``` javascript
+Vue.directive('my-directive',{
+    bind:function(){
+        //准备工作
+        //例如,添加事件处理器或只需要运行一次的高耗任务
+    },
+    update:function(newValue,oldValue){
+        //值更新时的工作
+        //也会一初始值为参数调用一次
+    },
+    unbind:function(){
+        //清理工作
+        //例如,删除bind()添加的事件监听器
+    }
+})
+```
+
+在注册之后,便可以在Vue.js模板中这样用(记得添加前缀v):
+
+``` javascript
+<div v-my-directive="someValue"></div>
+```
+
+#### 指令实例属性
+
+所有的钩子函数都将被复制到实际的指令对象中,在钩子内this指向这个指令对象。这个对象暴露了一些有用的属性:
+
+* el:指令绑定的元素
+* vm:拥有该指令的上下文ViewModel
+* expression:指令的表达式,不包括参数和过滤器
+* arg:指令的参数
+* name:指令的名字,不包含前缀
+* modifiers:一个对象,包含指令的修饰符
+* descriptor:一个对象,包含指令的解析结果
+
+#### 对象字面量
+
+如果指令需要多个值,则可以传入一个JavaScript对象字面量。记住,指令可以使用任意合法的JavaScript表达式。代码示例如下:
+
+``` html
+<body>
+    <div id="demo" v-demo="{color:'white',text:'hello!'}"></div>
+</body>
+<script>
+    Vue.directive('demo',function(value){
+        console.log(value.color)        //"white"
+        console.log(value.text)         //"hello"
+    })
+    var demo = new Vue({
+        el:"#demo"
+    })
+</script>
+```
+
+#### 字面修饰符
+
+当指令使用了字面修饰符时,它的值将按照普通字符串处理并传递给update方法。update方法将只调用一次，因为普通字符串不能响应数据变化。代码实例如下:
+
+``` html
+<body>
+    <div id="demo" v-demo.literal="foo bar baz"></div>
+</body>
+<script>
+    Vue.directive('demo',function(value){
+        console.info(value)     //foo bar baz
+    })
+    var edmo = new Vue({
+        el:'#demo'
+    })
+</script>
+```
+
+#### 元素指令
+
+有时候我们想以自定义元素的形式使用指令,而不是以属性的形式。元素指令可以看做是一个轻量组件。可以像下面这样注册一个自定义元素指令:
+
+``` html
+<body id="demo">
+    <my-directive class="hello" name="hi"></my-directive>
+</body>
+<script>
+    Vue.
