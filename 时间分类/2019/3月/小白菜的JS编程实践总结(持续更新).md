@@ -33,6 +33,7 @@
   * [分离样式的读写避免重绘重排](#分离样式的读写避免重绘重排)
 * [未来可能被支持的优秀编程实践]
   * [使用可选链式调用访问元素属性](#使用可选链式调用访问元素属性)
+* [文章参考](#文章参考)
 
 ## 代码约定
 
@@ -616,15 +617,3 @@ DOM变动和样式变动都会触发重新渲染,但是游览器会尽量将所�
 * [《编写可维护的JavaScript》]
 * [小白菜的博客](https://github.com/StrongDwarf/learning-notes)
 * [【高性能JS】重绘、重排与浏览器优化方法](https://juejin.im/post/5c7f80f4e51d4541c00218b0)
-
-
-``` javascript
-
-function a(){
-    var scope = "a scope"
-    return function(){
-        console.log(scope)
-    }
-}
-var scope = "global scope"
-a()()
