@@ -32,6 +32,10 @@
 ## 2019
 
 ### 2019-3
+[《JavaScript深入》读书笔记](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/《JavaScript深入》读书笔记.md)
+
+[VUE中的指令](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/VUE中的指令.md)
+
 [小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的JS编程实践总结(持续更新).md)
 
 [小白菜的前端性能优化总结](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的前端性能优化总结.md)
