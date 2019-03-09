@@ -18,14 +18,17 @@
 ### 时间分类
 [2018年](#2018)
  * [11月](#2018-11)
- * [12月](#2018-12)     
+ * [12月](#2018-12)
 
 [2019年](#2019)
  * [1月](#2019-1)
  * [2月](#2019-2)
+ * [3月](#2019-3)
 
 ## 置顶
-[小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的JS编程实践总结(持续更新).md)
+
+[小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/小白菜的JS编程实践总结(持续更新).md)
+[手写VUE(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/手写VUE(持续更新).md)
 
 # 时间分类
 
@@ -35,8 +38,6 @@
 [《JavaScript深入》读书笔记](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/《JavaScript深入》读书笔记.md)
 
 [VUE中的指令](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/VUE中的指令.md)
-
-[小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的JS编程实践总结(持续更新).md)
 
 [小白菜的前端性能优化总结](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/小白菜的前端性能优化总结.md)
 
