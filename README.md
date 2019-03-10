@@ -36,6 +36,9 @@
 ## 2019
 
 ### 2019-3
+
+[数组去重](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/数组去重.md)
+
 [节流](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/节流.md)
 
 [防抖](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/防抖.md)
