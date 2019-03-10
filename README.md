@@ -36,6 +36,8 @@
 ## 2019
 
 ### 2019-3
+[节流](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/节流.md)
+
 [防抖](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/防抖.md)
 
 [《JavaScript深入》读书笔记](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/《JavaScript深入》读书笔记.md)
