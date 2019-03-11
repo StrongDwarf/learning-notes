@@ -37,6 +37,10 @@
 
 ### 2019-3
 
+[深浅拷贝](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/深浅拷贝.md)
+
+[类型判断](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/类型判断.md)
+
 [数组去重](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/数组去重.md)
 
 [节流](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/节流.md)
