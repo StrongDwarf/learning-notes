@@ -36,6 +36,9 @@
 ## 2019
 
 ### 2019-3
+[偏函数](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/偏函数.md)
+
+[函数柯里化](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/函数柯里化.md)
 
 [如何判断两个对象相等](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/如何判断两个对象相等.md)
 
