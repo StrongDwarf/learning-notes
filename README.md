@@ -5,8 +5,6 @@
 #### 原博客地址: 
 [https://blog.csdn.net/qq_39263663](https://blog.csdn.net/qq_39263663)
 
-#### 重要的事情写在前头:因个人知识水平有限,如博客中发现错误，欢迎纠正,热烈欢迎纠正,强烈欢迎纠正(重要的事情说3遍)  
-
 # 标签分类
  * [CS素养](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/CS素养)
  * [Android](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/Android)
@@ -36,6 +34,9 @@
 ## 2019
 
 ### 2019-3
+
+[函数组合](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/函数组合.md)
+
 [偏函数](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/偏函数.md)
 
 [函数柯里化](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/函数柯里化.md)
