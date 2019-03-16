@@ -5,23 +5,11 @@
 #### 原博客地址: 
 [https://blog.csdn.net/qq_39263663](https://blog.csdn.net/qq_39263663)
 
-# 标签分类
- * [CS素养](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/CS素养)
- * [Android](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/Android)
- * [JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
- * [flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
- * [java](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JAVA)
- * [c/c++](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/C:C%2B%2B)
+## 分类
 
-### 时间分类
-[2018年](#2018)
- * [11月](#2018-11)
- * [12月](#2018-12)
+* [标签分类](#标签分类)
 
-[2019年](#2019)
- * [1月](#2019-1)
- * [2月](#2019-2)
- * [3月](#2019-3)
+* [时间分类](#时间分类)
 
 ## 置顶
 
@@ -184,3 +172,23 @@
 
 [JavaScript中的变量，作用域和内存问题小结](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2018/11月/JavaScript中的变量，作用域和内存问题小结.md)
 
+
+### 标签分类
+
+ * [CS素养](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/CS素养)
+ * [Android](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/Android)
+ * [JavaScript](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JavaScript)
+ * [flutter](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/flutter)
+ * [java](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/JAVA)
+ * [c/c++](https://github.com/StrongDwarf/learning-notes/tree/master/标签分类/C:C%2B%2B)
+
+### 时间分类
+
+[2018年](#2018)
+ * [11月](#2018-11)
+ * [12月](#2018-12)
+
+[2019年](#2019)
+ * [1月](#2019-1)
+ * [2月](#2019-2)
+ * [3月](#2019-3)
