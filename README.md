@@ -29,11 +29,19 @@
 
 [手写VUE(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/手写VUE(持续更新).md)
 
+[underscore实现(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/underscore实现(持续更新).md)
+
 # 时间分类
 
 ## 2019
 
 ### 2019-3
+
+[call,apply,bind,new的模拟实现](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/call,apply,bind,new的模拟实现.md)
+
+[乱序](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/乱序.md)
+
+[函数记忆](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/函数记忆.md)
 
 [函数组合](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/函数组合.md)
 
