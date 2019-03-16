@@ -31,6 +31,8 @@
 
 [underscore实现(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/underscore实现(持续更新).md)
 
+[JS函数式编程(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/JS函数式编程.md)
+
 # 时间分类
 
 ## 2019
