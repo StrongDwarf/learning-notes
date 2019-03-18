@@ -21,11 +21,15 @@
 
 [JS函数式编程(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/JS函数式编程.md)
 
+[浏览器深入](https://github.com/StrongDwarf/learning-notes/blob/master/total/浏览器深入.md)
+
 # 时间分类
 
 ## 2019
 
 ### 2019-3
+
+[H5中新的元素](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/H5中新的元素.md)
 
 [call,apply,bind,new的模拟实现](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/3月/call,apply,bind,new的模拟实现.md)
 
