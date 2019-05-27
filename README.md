@@ -12,6 +12,7 @@
 * [时间分类](#时间分类)
 
 ## 置顶
+[java学习(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/java学习.md)
 
 [小白菜的JS编程实践总结(持续更新)](https://github.com/StrongDwarf/learning-notes/blob/master/total/小白菜的JS编程实践总结(持续更新).md)
 
@@ -26,6 +27,12 @@
 # 时间分类
 
 ## 2019
+
+### 2019-5
+
+[java的基本程序设计结构](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/5月/java的基本程序设计结构.md)
+
+[java程序设计概述](https://github.com/StrongDwarf/learning-notes/blob/master/时间分类/2019/5月/java程序设计概述.md)
 
 ### 2019-4
 
