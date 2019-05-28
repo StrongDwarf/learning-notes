@@ -320,3 +320,279 @@ else i++;
 
 ### 6.7,String API
 
+* char charAt(int index):返回给定位置的代码单元。除非对底层的代码单元感兴趣，否则不需要调用这个方法
+* int codePointAt(int index):返回从给定位置开始的码点
+* int offsetByCodePoints(int startIndex,int cpCount):返回从startIndex代码点开始,位移cpCount后的码点索引
+* int compareTo(String other):按照字典顺序,如果字符串位于other之前,返回一个负数;如果字符串位于other之后，返回一个正数；如果两个字符串相等，返回0。
+* intStream codePoints():将这个字符串的码点作为一个流返回。调用toArray()将它们放在一个数组中
+* new String(int[] codePoints,int offset,int count):用数组中offset开始的count个码点构造一个字符串。
+* boolean equals(Objeect other):如果字符串与other相等，返回true。
+* boolean reualsIgnoreCase(String other):如果字符串与other相等(忽略大小写)，返回true
+* boolean startsWith(String prefix):如果字符串以suffix开头,则返回true
+* boolean endsWith(String prefix):如果字符串以suffix结尾，则返回true
+* int indexOf(String str[,int fromIndex]):返回与字符串str匹配的第一个子串的开始位置。这个位置从索引0或fromIndex开始计算。如果在原始串中不存在str，返回-1.
+* int indexOf(int cp[,int fromIndex]):返回与代码点cp匹配的第一个子串的开始位置。这个位置从索引0或fromIndex开始计算。
+* int lastIndexOf(String str[,int fromIndex]):返回与字符串str匹配的最后一个子串的开始位置。这个位置从字符串尾端或fromIndex开始计算。
+* int lastIndexOf(int cp[,int fromIndex]):返回与代码点cp匹配的最后一个子串的开始位置。这个位置从字符串尾端或fromIndex开始计算
+* int length():返回字符串的长度
+* int codePointCount(int startIndex,int endIndex):返回startIndex和endIndex-1之间的代码点数量。没有配成对的代用字符将计入代码点
+* String replace(charSequence oldString,CharSequence newString):返回一个新字符串。这个字符串用newString代替原始字符串中所有的oldString。可以用String或StringBuilder对象作为CharSequence参数
+* String subString(int beginIndex[,int endIndex]):返回一个新字符串。这个字符串包含原始字符串从beginIndex到串尾或endIndex-1的所有代码单元
+* String toLowerCase():返回一个新字符串,这个字符串将原始字符串中的大写字母转为小写字母
+* String toUpperCase():返回一个新字符串,这个字符串将原始字符串中的小写字符转为大写字母
+* String trim():返回一个新字符串,这个字符串将删除了原始字符串头部和尾部的空格
+* String join(ChaeSequence delimiter,CharSequence... elements):返回一个新字符串,用给定的定界符连接所有元素
+
+### 6.8,阅读联机文档
+
+联机文档地址: https://docs.oracle.com/javase/8/docs/api/
+
+### 6.9,构建字符串
+
+有些时候,需要由较短的字符串构建字符串，例如,按键或来自文件中的单次。采用字符串连接的方式达到此目的效率比较低。每次连接字符串，都会构建一个新的String对象，既耗时，又浪费空间。使用StringBuilder类就可以避免这个问题的发生。使用StringBuilder如下:
+
+``` java
+StringBuilder builder = new StringBuilder();        //创建StringBulider对象
+builder.append('h');            //添加单个字符
+builder.append('ello');         //添加字符串
+String completedString = builder.toString();        //获取构建器中的字符序列
+```
+
+下面是一些StringBulider类中的重要方法:
+
+* StringBuilder():构造一个空的字符串构建器
+* int length():返回构建器或缓冲器中的代码单元数量
+* StringBuilder append(String str):追加一个字符串并返回this
+* StringBuilder append(char c):追加一个代码单元并返回this
+* StringBuilder appendCodePoint(int cp):追加一个代码点,并将其转换为一个或两个代码单元并返回this
+* void setCharAt(int i,char c):将第i个代码单元设置为c
+* StringBuilder insert(int offset,String str):在offset位置插入一个字符串病返回this
+* StringBuilder insert(int offset,Char c):在offset位置插入一个代码单元并返回this
+* StringBuilder delete(int startIndex,int endIndex):删除偏移量从startIndex到-endIndex-1的代码单元并返回this。
+* String toString():返回一个与构建器或缓冲器内容相同的字符串
+
+## 7，输入输出
+
+### 7.1，读取输入
+
+使用标准输入流(即从控制台窗口输入)
+
+``` java
+Scanner in = new Scanner(System.in);
+System.out.pringln("what is your name?");
+String name = in.nextLine();
+```
+
+Scanner相关方法：
+
+* Scanner(InputStream in):用给定的输入流创建一个Scanner对象
+* String nextLine():读取输入的下一行内容
+* String next():读取输入的下一个单次(以空格作为分隔符)
+* int nextInt()  double nextDouble():读取并转换下一个表示整数或浮点数的字符序列
+* boolean hasNext():检测输入中是否还有其他单词
+* boolean hasNextInt():
+* boolean hasNextDouble():检测是否还有表示整数或浮点数的下一个字符序列
+
+### 7.2,格式化输出
+
+可以使用System.out.print(x)将数值x输出到控制台上。这条命令将以x对应的数据类型所允许的最大非0数字位数打印输出x。例如:
+
+``` java
+double x = 10000.0/3.0;
+System.out.print(x);        //3333.333333333335
+```
+
+用于printf的转换符:
+
+* d:十进制整数,
+* x:十六进制整数
+* o:八进制整数
+* f:定点浮点数
+* e:指数浮点数
+* g:通用浮点数
+* a:十六进制浮点数
+* s:字符串
+* c:字符
+* b:布尔
+* h:散列码
+* tx或Tx:日期时间
+
+### 7.3:文件输入和输出
+
+要想对文件进行读取,就需要一个用File对象构造一个Scanner对象,如下所示:
+
+``` java
+Scanner in = new Scanner(Paths.get("myfile.txt"),"UTF-8")
+```
+
+如果文件名中包含反斜杠符号,就要记住在每个反斜杠之前再加以个额外的反斜杠: "c:\\mydirectory\\myfile.txt"
+
+如果要写入文件,就需要构造一个PrintWriter对象。在构造器中，只需要提供文件名:
+
+``` java
+PrintWriter out = new PrintWriter("myFile.txt","UTF-8");
+```
+
+如果文件不存在,创建该文件。可以像输出到System.out一样使用print,println以及printf命令
+
+值得注意的是,可以构造一个带有字符串参数的Scanner,但这个Scanner将字符串解释为数据，而不是文件名。例如，如果调用:
+
+``` java
+Scanner in = new Scanner("myfile.txt"); //Error?
+```
+
+当指定一个相对文件名时,例如,"myfile.txt","mydirectory/myfile.txt" 或 "../myfile.txt",文件位于java虚拟机启动路径的相对位置。如果在命令杭霞用如下命令启动程序:
+
+``` shell
+java MyProp
+```
+
+启动路径就是命令解释器的当前路径。然而,如果使用集成开发环境，那么启动路径将由IDE控制。可以使用下面的调用方式找到路径的位置:
+
+``` java
+String dir = System.getProperty("user.dir")
+```
+
+## 8,控制流程
+
+与任何程序设计语言一样,java使用条件语句和循环结构确定控制流程。
+
+### 8.1，块作用域
+
+在java中,不能在嵌套的块作用域中声明两个同名的变量,但能在两个不嵌套的块作用域中声明两个同名的变量。如下:
+
+``` java
+//嵌套,编译不会通过
+public static void main(String[] args){
+    int n;
+    {
+        int k ;
+        int n;
+    }
+}
+//不嵌套,编译会通过
+public static void main(String[] args){
+    {
+        int n;
+    }
+    {
+        int n;
+    }
+}
+```
+
+### 8.2，条件语句
+
+即: if...else语句
+
+### 8.3,循环
+
+while(condition) statement
+
+do{statement} while(condition)
+
+### 8.4,确定循环
+
+for循环
+
+### 8.5,多重选择:switch语句
+
+### 8.6，中断控制流程语句
+
+break，continue
+
+### 9，大数值
+
+如果基本的整数和浮点数精度不能满足需求,那么可以使用java.math包中的量个很有用的类:BigInteger和BigDecimal。
+
+使用静态的valueOf方法可以将普通的数值转换为大数值
+
+``` java
+BigInteger a = BigInteger.valueOf(100);
+```
+
+遗憾的是,不能使用熟悉的算术运算符处理大数值,可以使用下面的方法处理大数值
+
+* BigInteger add(BigInteger other):加
+* BigInteger subtract(BigInteger other):减
+* BigInteger multiply(BigInteger other):乘
+* BigInteger divide(BigInteger other):除
+* int compareTo(BigInteger other):相等:0,小于另一个:负数, 大于另一个:正数
+* static BigInteger vlaurOf(long x):返回值等于x的大整数
+* static BigDecimal valueOf(long x,int scale):返回值为x或x/10^scale的大整数
+
+## 10，数组
+
+声明数组:
+
+``` java
+int[] a;
+```
+
+创建数组
+
+``` java
+int[] a = new int[100];
+//或者
+int a[] = new int[100];
+```
+
+从语法上来书,第一种方式更好,因为他将类型[]和变量名分开了
+
+值得注意的是,一旦创建了数组,就不能再改变他的大小(尽管可以改变每一个数组元素),如果经需要在运行过程中扩展数组的大小，就应该使用另一中数据结构--数组列表(array,list)
+
+### 10.1,for each循环
+
+在java中可以使用for each循环快速遍历每个元素,如下:
+
+``` java
+int[] a = new int[100];
+for(int i =0,len=a.length;i<a;i++){
+    a[i] = i;
+}
+for(int i:a){
+    System.out.println(i)
+}
+```
+
+### 10.2，数组初始化以及匿名数组
+
+创建数组并赋予数组初始值
+
+``` java
+int[] smallPrimes = {2,3,5,7,11,13}
+```
+
+初始化一个匿名数组
+
+``` java
+new int[] {17,19,23,29,31,37}
+```
+
+### 10.3,数组拷贝
+
+``` java
+//直接引用,浅拷贝
+int[] luckyNumbers = smallPrimes;
+luckyNumbers[5] = 12;
+//使用Array.copyOf()方法,深拷贝
+int[] copiedLuckyNumbers = Arrays.copyOf(luckyNumbers,luckyNumbers.length);
+//指定数组长度小于luckyNumebrs的长度时,当luckyNumbers是数值型时,多余的元素将被赋值为0,当数组元素是布尔型时,多余元素将被赋值为false。
+```
+
+### 10.4，命令行参数
+
+每个java应用程序都有一个带String arg[]参数的main方法。这个参数表明main方法将接收一个字符串数组，也就是命令行参数。
+
+看如下程序：
+
+``` java
+public class Message{
+    public static void main(String[] args){
+        if(args.length == 0 || args[0].equal("-h")){
+            System.out.print("Hello,");
+        }else if(args[0].equals("-g")){
+            System.out.print()
+        }
+    }
+}
