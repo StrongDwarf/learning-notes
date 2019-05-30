@@ -594,5 +594,30 @@ public class Message{
         }else if(args[0].equals("-g")){
             System.out.print()
         }
+        for(int i = 1;i<args.length;i++){
+            System.out.print(""+args[i]);
+            System.out.println("!")
+        }
     }
 }
+```
+
+如果使用下面这种形式运行这个程序:
+
+``` shell
+java Message -g cruel world
+```
+
+args数组将显示下列信息
+
+``` shell
+Goodbye,curel world!
+```
+
+### 10.5 数组排序
+
+数组相关方法:
+
+* static String toString(type[] a):返回包含a中数据元素的字符串，这些数据元素被放在括号内，并用逗号分隔。参数:a ，  类型为int,long,short,char,byte,boolean,float或double的数组
+* static type copyOf(type[] a,int length):
+* static type copyOfRange(type[] a,int start,int end):返回与a类型相同的一个数组,其长度为length或者end-start，数组元素为a的值。
