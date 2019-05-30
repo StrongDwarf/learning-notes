@@ -621,3 +621,52 @@ Goodbye,curel world!
 * static String toString(type[] a):返回包含a中数据元素的字符串，这些数据元素被放在括号内，并用逗号分隔。参数:a ，  类型为int,long,short,char,byte,boolean,float或double的数组
 * static type copyOf(type[] a,int length):
 * static type copyOfRange(type[] a,int start,int end):返回与a类型相同的一个数组,其长度为length或者end-start，数组元素为a的值。
+* static void sort(type[] a)
+* static void binarySearch(type[] a,type v)
+* static void binarySearch(type[] a,int start,int end,type v)：使用二分查找法查找值V
+* static void fill(type[] a,type v):将数组的所有数据元素设置为v
+* static boolean equals(type[] a,type[] b):如果两个数组大小相同,并且下标相同的元素都对应相等，返回true。
+
+### 10.6 多维数组
+
+声明一个多维数组
+
+``` java
+double[][] balances
+```
+
+初始化一个多维数组
+
+``` java
+int[][] magicSquare = {
+    {1,2,3,4},
+    {2,3,4,5}
+}
+```
+
+### 10.7 不规则数组
+
+java实际上没有多维数组,只有一维数组。多维数组被解释为"数组的数组"
+
+``` xml
+C++注释:在C++中,java声明
+    double[][] balances = new double[10][6];    //java
+    不同于
+    double balances[10][6]; //C++
+    也不同于
+    double (*balances)[6] = new double[10][6];  //c++
+    而是分配了一个包含10个指针的数组:
+    double** balances = new double*[10];    //c++
+    然后,指针数组的每一个元素被填充了一个包含6个数字的数组
+    for(i=0;i<10;i++)
+        balances[i] = new double[6];
+    庆幸的是,当创建new double[10][6]时,这个循环将自动地执行。当需要不规则的数组时,只能单独地创建行数组。
+```
+
+可以使用如下方法创建不规则数组
+
+``` java
+int[][] odds = new int[10][]
+odds[1] = new int[2]
+odds[2] = new int[3]
+```
