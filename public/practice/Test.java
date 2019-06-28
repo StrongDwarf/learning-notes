@@ -6,7 +6,10 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 public class Test {
     public static void main(String[] args) {
-        System.out.println(Size.SMALL.toString());
+        ActionListener listener = event -> {
+            System.out.println(this.toString());
+        };
+        listener();
     }
 
     enum Size {
