@@ -1,6 +1,6 @@
 # learning-notes
 
-记录个人学习笔记，也作为博客没上线之前的对外博客
+**记录个人学习笔记，也作为博客没上线之前的对外博客**
 
 #### 原博客地址: 
 [https://blog.csdn.net/qq_39263663](https://blog.csdn.net/qq_39263663)
