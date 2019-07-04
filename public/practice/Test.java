@@ -4,25 +4,29 @@ import com.sun.glass.ui.Size;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+
+
 public class Test {
     public static void main(String[] args) {
-        ActionListener listener = event -> {
-            System.out.println(this.toString());
-        };
-        listener();
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter n: ");
+        int n = in.nextInt();
+        factorial(n);
     }
-
-    enum Size {
-        SMALL("S"), MEDIUM("M"), LARGE("L"), EXTRA_LARGE("XL");
-
-        private String abbreviation;
-
-        private Size(String abbreviation) {
-            this.abbreviation = abbreviation;
+    public static int factorial(int n) {
+        System.out.println("factorial(" + n + ")");
+        Throwable t = new Throwable();
+        StackTraceElement[] frames = t.getStackTrace();
+        for (StackTraceElement f : frames){
+            System.out.println("f");
         }
-
-        public String getAbbreviation() {
-            return abbreviation;
+        int r;
+        if (n <= 1) {
+            r = 1;
+        }else {
+            r = n * factorial(n - 1);
         }
+        System.out.println("return " + r);
+        return r;
     }
 }
