@@ -35,4 +35,4 @@ Tomcat,Jetty,Weblogic,Jboss,WebSphere。
 
 ### 2.1 WEB项目结构
 
-[J2EE项目结构图](!)
+![J2EE项目结构图](https://github.com/StrongDwarf/learning-notes/blob/master/public/img/J2EE%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%9B%BE.png?raw=true "J2EE项目结构图")
