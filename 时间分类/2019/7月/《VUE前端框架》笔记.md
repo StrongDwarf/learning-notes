@@ -302,7 +302,7 @@ new Vue({
 * v-model="test" -> :value = "test" @input="test=$event.target.value"
 * input针对的是text或者textarea
 
-## 组件封装
+## 封装组件
 
 ### 全局注册与局部注册
 
@@ -447,7 +447,7 @@ export default{
 <my-input-number v-model="test" :max="10" :min="-10"></my-input-number>
 ```
 
-## VUE风格指南
+## 风格指南
 
 ### 组件名避免单个单词
 
