@@ -59,12 +59,14 @@ Server Applet是java servlet简称,用java编写的服务端程序,主要功能�
 
 * init:Servlet初始化时执行。
 * destroy:Servlet销毁时执行。
-* doGet:GET调用用于获取服务器信息，并将其做为响应返回给客户端。。
-* doPost:用于客户端把数据传送到服务器端。
+* doGet:处理表单method为get时候的请求。
+* doPost:处理表单method为post时的请求。
 * service:用于处理业务逻辑，业务逻辑代码都写在这，当用户访问servlet时，都会调用该函数。
 
 
 ###### 一个ServletDEMO
+
+一个演示DEMO:用于在浏览器中输出hello world。
 
 ``` java
 // hello.java文件
@@ -100,7 +102,7 @@ public class hello implements Servlet {
     /**
      * @name: init
      * @notes: servlet初始化时调用
-     * @param: ServletConfig args0
+     * @param: ServletConfig args0 servlet配置文件中的相关属性
      * @return: void
      */
     @Override
@@ -111,8 +113,8 @@ public class hello implements Servlet {
     /**
      * @name: service
      * @notes: service用于处理业务逻辑,业务逻辑代码都写在这
-     * @param: res 用于获取客户端(浏览器)的请求信息
-     * @param: req 用于向客户端(浏览器)返回信息
+     * @param: ServletResponse res 用于向客户端(浏览器)返回信息
+     * @param: ServletRequest req 用于获取客户端(浏览器)的请求信息
      * @return: void
      */
     @Override
@@ -121,14 +123,7 @@ public class hello implements Servlet {
 
         // 打印在浏览器上的信息
         PrintWriter pw = req.getWriter();
-        pw.println("hello,this is servlet");
-
-        // 向浏览器中输出一个登陆表单
-        pw.println("<form action=\"sp\" method=\"post\">")
-        pw.println("用户名：<input type=\"text\" name=\"username\"/><br>")
-        pw.println("密码:<input type=\"password\" name=\"password\"/><br>")
-        pw.println("<input type=\"submit\" />")
-        pw.println("</form>")
+        pw.println("hello,world");
     }
 }
 ```
@@ -239,6 +234,7 @@ DEMO:为所有URL添加一个字符过滤器
 ``` java
 // CharacterFilter.java文件
 /**
+ * CharacterFilter
  * @notes: 字符格式过滤,继承Filter并覆写一些方法
  * @author: 朱泽聪
  * @createTime: 2019/7/7
@@ -266,6 +262,7 @@ public class CharacterFilter implements Filter {
     }
 
     /**
+     * @name: doFilter
      * @notes: 过滤器逻辑
      * @param: ServletRequest req
      * @param: ServletResponse res
@@ -281,6 +278,7 @@ public class CharacterFilter implements Filter {
     }
 
     /**
+     * @name: init
      * @notes: 过滤器初始化时读取配置文件中charset属性值
      * @param: FilterConfig fConfig 过滤器配置文件,从web.xml文件中读取
      * @return: void
@@ -383,6 +381,12 @@ public class MyServletContextListener implements ServletContextListener {
 ###### ServletContextAttributeListener DEMO
 
 ``` java
+/**
+ * MyServletContextAttributeListener
+ * @notes: 对象属性监听器
+ * @author: 朱泽聪
+ * @createTime: 2019/7/8
+ */
 public class MyServletContextAttibuteListener implements ServletContextAttributeListener{
 
     public void attributeAdded(ServletContextAttributeEvent scab) {
@@ -435,6 +439,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 ###### 对象感知监听器 DEMO
 
 ``` java
+/**
+ * Person
+ * @notes: 对象感知器DEMO,对象在session绑定,解绑,活化,钝化
+ * @author: 朱泽聪
+ * @createTime: 2019/7/8
+ */
 public class Person implements HttpSessionBindingListener,HttpSessionActivationListener,Serializable {
 
     private String id;
