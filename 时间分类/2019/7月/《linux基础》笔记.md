@@ -1,7 +1,7 @@
-# 《VUE》笔记
+# 《linux基础》笔记
 
 ###### author:朱泽聪
-###### createTime:2019/7/8
+###### createTime:2019/7/13
 
 ## 目录
 
