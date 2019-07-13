@@ -13,4 +13,4 @@
 
 ## 1,JS与ES
 
-**规范发布新流程:**[https://tc39.es/process-documnet/](#https://tc39.es/process-documnet/)
+**规范发布新流程:**[https://tc39.es/process-documnet/](!https://tc39.es/process-documnet/)
