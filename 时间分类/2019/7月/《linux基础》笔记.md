@@ -214,12 +214,244 @@ linux命令的分类:
 
 ``` bash
 # du : 统计文件及目录的控件占用情况
-[@xiaobaicai]$ du -sh xiaobaicai.txt
+[@xiaobaicai test]$ du -sh xiaobaicai.txt
 4.0K xiaobaicai.txt
 
 # touch : 新建空文件
-[@xiaobacai]$ ls
+[@xiaobaicai test]$ ls
+a b c
+[@xiaobaicai test]$ touch xiaobaicai.txt
+[@xiaobaicai test]$ ls
+a b c xiaobaicai.txt
+# cp : 复制文件或目录
+[@xiaobaicai test]$ cp ./xiaobaicai.txt ./a/temp.txt
+[@xiaobaicai test]$ ls ./a
+temp.txt
+# rm : 删除指定文件夹或文件
+[@xiaobaicai test]$ rm ./a/temp.txt
+[@xiaobaicai test]$ ls ./a
+# 无显示
 
+# find : 用于查找文件或目录
+# 创建文件 略
+[@xiaobaicai test]$ ls ./a
+xiaobaicai xiaobaicai.txt aaa abc.txt a.sh
+[@xiaobaicai test]$ find ./a -name "*.sh"
+./a/a.sh
+[@xiaobaicai test]$ find -name "*xiaoba*"
+./a/xiaobaicai
+./a/xiaobaicai.txt
+```
 
+### 2.4 VI编辑器
+
+* 进入vi编辑器 : vi [文件行号] <文件名>
+* 编辑 : 按 i, o, a等字符进入输入模式
+* 进入末行输入模式 : 在编辑状态按esc退出编辑模式并进入末行输入模式
+* 退出 :
+  * :q : 未修改退出
+  * :w : 保存文件
+  * :wq : 保存文件并退出
+  * :w <文件地址> : 另存为其他文件
+
+### 2.5 正则表达式规则
+
+**正则表达式规则** :
+
+* ^ : ^word 搜索以word开头的内容
+* $ : word$ 搜索以word结尾的内容
+* ^$ : 表示空行, 不是空格
+* . : 代表且只能代表任意一个字符 (不匹配空行)
+* \ : 转移字符
+* * : 重复之前的字符或文本0个或多个, 之前的文本或字符0次或多次
+* [abc][0-9][\.,/] : 匹配字符集合内的任意一个字符a或b或c, 匹配0-9中的任意一个字符
+* [^abc] : 匹配不包含abc中任意一个字符的任意字符
+* a\{n,m\} : 重复前面a字符n到m次
+* a\{n,\} : 重复前面a字符至少n次
+* a\{n\} : 重复a n次
+* + : 重复前一个字符一次或一次以上
+* ? : 重复前面的字符0次或1次
+* | : 表示或者同时过滤多个字符
+* () : 分组过滤被括起来的东西表示一个整体(一个字符), 反向引用
+
+### 2.6 文件搜索命令
+
+* **grep** : 在文件中查找并显示包含指定字符串的行
+  * -i : 查找时忽略大小写
+  * -v : 反向查找, 输出与查找条件不相符的行
+* **egrep** : 在文件中查找并显示包含指定字符串的行, 使用扩展正则表达式来构建模式, 相当于grep -E
+* **fgrep** : 在文件中查找并显示包含指定字符串的行, 但它不解析正则表达式
+* **sed** : sed是一个很好的文件处理工具, 本身是一个管道命令, 主要是以行为单位进行处理, 可以将数据行进行替换, 删除, 新增, 选取等特定工作。
+  * -n : 使用安静模式。只有经过sed特殊处理的哪一行才会被列出来
+  * -i : 直接修改读取的档案内容, 而不是有银屏输出。
+
+### 2.7 awk命令
+
+**用途** : awk语言的最基本功能是在文件或字符串中基于指定规则浏览和抽取信息, awk抽取信息后, 才能进行其他文本操作。
+
+**格式** : wak [选项] '{pattern + action}' <文件参数>
+
+**其中** :
+
+* commands是真正awk命令, 文件参数是待处理的文件。 在awk中, 文件的每一行中, 由域分隔符分开的每一项称为一个域。
+* 在不指明-F分隔域的情况下, 默认的域分隔符是空格。
+
+**awk工作流程** : 读入有 '\n' 换行符分割的一条记录, 然后将记录按指定的域分隔符划分域, 填充域, $0表示所有域, $1 表示第一个域, $n表示第n个域。默认域分隔符是"空白键" 或 "[tab]键"。
+
+``` bash
+# awk使用示例
+[@xiaobaicai test]$ ls
+xiaobaicai.txt
+[@xiaobaicai test]$ cat xiaobaicai.txt
+1 a
+2 b
+3 c
+4 d
+[@xiaobaicai test]$ cat xiaobaicai.txt | awk '{print $1}'
+1
+2
+3
+4
+```
+
+## 2,基础用户和软件管理
+
+**用户账号的管理工作主要涉及到用户账号的添加,修改和删除** :
+
+添加用户账号就是在系统中创建一个新账号, 然后为新账号分配用户号, 用户组, 主目录和登录shell等资源。刚添加的账号是被锁定的, 无法使用。
+
+**查看本地用户账户的用户名**
+
+``` bash
+# id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+### 系统用户管理
+
+* **创建新用户** :
+  * 命令 : useradd <选项> <参数>
+  * -c : comment指定一段注释性描述
+  * -d : 目录, 指定用户主目录, 如果此目录不存在, 则同时使用-m选项, 可以创建主目录
+  * -g : 指定用户所属主的用户组
+  * -G : 用户组, 用户组指定用户所属的附加组
+  * -s : Shell文件, 指定用户的登录Shell
+  * -u : 用户号 指定用户的用户号, 如果同时有-o选项,则可以重复使用其他用户的标识号。
+* **删除用户** :
+  * 命令 : userdel <选项> <参数>
+  * -r : 把用户的主目录一起删除
+* **修改账号** :
+  * 命令 : usermod <选项> <参数>
+* **用户口令管理** :
+  * 命令 : passwd <选项> <参数>
+  * 普通用户只能修改自己的口令, 超级用户可以为自己和其他用户指定口令。
+  * -l : 锁定口令
+  * -u : 口令解锁
+  * -d : 使账号无口令
+  * -f : 强迫用户下次登录时修改口令
+
+``` bash
+# 创建新用户, 并为其指定主空间和所属用户组
+[@root home]$ useradd -c 'user for xiaobaicai' -d ./home/user/xiaobaicai -g group1 xiaobaicai
+
+# 删除用户, 并删除其主目录
+[@root home]$ userdel -r xiaobaicai
+
+# 修改用户主目录
+[@root home]$ usermod -d ./home/user/xiaobaicai1 xiaobaicai
+```
+
+### 系统用户组管理
+
+* **新增用户组** :
+  * 命令 : groupadd <选项> <参数>
+  * -g : GID指定新用户组的组标识号
+  * -o : 一般与-g选项同时使用, 标识新用户组的GID可以与系统已有用户组的GID相同
+* **删除用户组** :
+  * 命令 : groupdel 用户组
+* **修改用户组** :
+  * 命令 : groupmod <选项> <参数>
+  * -g : GID为用户组指定新的组标识号
+  * -o : 与-g选项同时使用, 用户组的新GID可以与系统已有用户组的GID相同
+  * -n : 将用户组的名字该为新名字
+  * 
+
+``` bash
+# 新建一个用户组
+[@root home]$ groupadd -g 1001 group2
+
+# 删除一个用户组
+[@root home]$ groupdel group2
+
+# 修改用户组标识号和名称
+[@root home]$ groupmod -g 1002 -n group3 group2
+```
+
+### 用户切换
+
+**命令 : su - <username>**
+
+* 由普通用户切换到root用户时需要输入密码
+* 由root用户切换到普通用户时不需要输入密码
+* 如果仅仅只要切换到root进行一次操作, 可以使用 su -c 命令
+
+### SSH登录
+
+**命令 : ssh 用户名@IP地址**
+
+* 不允许空密码或错误密码认证登录
+* 不允许root用户登录
+* 有两个版本ssh, ssh2安全性更高
+* 查看外部ssh连接本地情况 : w -f
+
+### SCP命令
+
+* 作用 : 两节点文件的拷贝传输
+* 命令 : scp 路径/文件名 用户名@IP地址:目录
+* -p : 文件属性不发生变化
+* -r : 如果拷贝的是目录 需要加上-r 递归
+
+### sftp命令
+
+``` bash
+# sftp下载文件
+# 进入sftp
+[@root ~]$ sftp serverX
+@root‘s password : pass
+Connected to serverX
+# 下载文件
+sftp> get /etc/you.conf
+# 上传文件
+sftp> mkdir hostbackup
+sftp> cd hostbackup
+sftp> put /etc/hosts
+```
+
+### systemd概述
+
+系统启动和服务器进程由systemd系统和服务管理器管理。
+
+这个程序提供了一种方法来激活系统资源, 服务器守护进程和其他进程, 无论是在启动时还是在运行中的系统上。
+
+相关命令:
+
+* 启动一个服务 : systemct| start sshd.service
+* 关闭一个服务 : systemct| stop sshd.service
+* 重启一个服务 : systemct| restart sshd.service
+* 显示一个服务的状态 : systemct| status sshd.service
+* 在开机时启动一个服务 : systemct| enable sshd.service
+* 在开机时禁用一个服务 : systemct| disable sshd.service
+* 查看服务是否开机启动 : systemct| is-enabled sshd.service:echo $?
+* 查看已启动的服务列表 : systemct| list-unit-files|grep enabled
+
+### 网络性能
+
+* 查询网卡接口 : ip add show
+* 显示网络接口性能 : ip -s link show
+* 查看路由表 : route -n
+* 测试网络连通性 : ping www.baidu.com
+* 跟踪路由 : traceroute www.baidu.com
+
+## 3,权限管理和目录应用
 
 
