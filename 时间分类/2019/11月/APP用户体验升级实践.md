@@ -119,7 +119,7 @@ QQ主题色:白色作为底调，淡蓝色作为主题色，给人的印象是�
 
 ###### 事实上,对"功能来说",所有的文字,图片,样式都是功能的注释。
 
-#### 1.2.1 页面中功能太多
+#### 1.2.1,页面中功能太多
 
 "页面中功能太多":在用户感知中,页面中有多少功能?请先看一段伪代码示例。
 
@@ -159,20 +159,117 @@ QQ主题色:白色作为底调，淡蓝色作为主题色，给人的印象是�
 
 ###### 实例
 
-可以看一个实例:
+上面的例子可以再看一个实例:
 
+实例1:支付宝首页,功能繁多,但因为布局合理,在用户感知中其实只有6块功能
 
+<img alt="支付宝-首页-功能块图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/支付宝-首页-功能块.png?raw=true" width="400"/>
 
-下面两张图,是首页样式优化前后的对比图。
+实例2:我的优化前的APP,功能没几个,但因为样式太烂,在用户感知中却拥有11个功能。
 
-<img alt="主题色-我的APP图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/首页-优化前.png?raw=true" width="400"/>
+<img alt="首页-优化前-功能块图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/首页-优化前-功能块.png?raw=true" width="400"/>
 
-<img alt="主题色-我的APP图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/首页-优化后.png?raw=true" width="400"/>
+###### 关于在样式层怎样给功能分块,会在后文 [1.4,背景色,元素色,线条,阴影之间的故事]中介绍
 
-优化后的首页虽然新增了两个元素(如下),但却将原来"首页中有很多元素"的视觉效果变成了首页中只有"两个元素"的视觉效果,使得用户对首页拥有的功能更清晰了。
+#### 1.2.2,功能命名烂而且没注释
 
-<img alt="主题色-我的APP图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/首页-优化后1.png?raw=true" width="400"/>
+功能命名烂而且没注释:命名烂的功能指的是不能望文生义的命名,功能命名也和编程中的变量命名一样,命名应该符合变量(功能)的用途。
 
+##### 实例
 
+在优化APP的过程中,我们有个事件申报功能,事件申报??? 咋一看,我想没人知道这个功能是干啥的(事件?啥是事件啊.),而且点击事件申报进入功能详情后,也没有任何对功能的解释。后来向产品经理了解了后才知道事件申报功能的用途是:"当商家在使用APP时候遇到问题后使用事件申报申报事件"。这不就是用户反馈问题的地方么？ 于是将其名称改为了 **用户反馈**。
 
-《新定位》一书中列出了消费者的五大思考模式特性:消费者只能接收有限的信息,消费者喜欢简单,消费者缺乏安全感,消费者对品牌的印象不会轻易改变,消费者的想法容易失去焦点。
+<img alt="设置-事件申报图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/设置-事件申报.png?raw=true" width="400"/>
+
+#### 1.2.3,页面功能注释太多
+
+页面功能注释太多:页面功能注释太多在样式层的表现更多是喧宾夺主,次要元素(次要元素包括“注释”元素)比主要元素更加吸引用户注意力,如下实例:
+
+实例1:优化前我的APP店铺信息页面
+
+在下图中,红圈中的元素在页面中的功能是告诉用户点击该按钮可以查看商户详情,其与商户名称,商户简称这两个元素的重要性级别应该是: 商户名称>商户简称>该元素。 但是在样式表现上却是: 该元素>商户名称>商户简称。 这就是喧宾夺主。
+
+<img alt="我的-店铺信息图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/我的-店铺信息.png?raw=true" width="400"/>
+
+优化后:
+
+<img alt="我的-店铺信息-优化后图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/我的-店铺信息-优化后.png?raw=true" width="400"/>
+
+实例2:优化前首页功能栏
+
+优化前:图标>文字, 容易使用户记得图标却记不住功能,
+优化后:图标只起辅助记忆作用
+
+<img alt="首页-功能栏-优化前图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/首页-功能栏-优化前.png?raw=true" width="400"/>
+
+<img alt="首页-功能栏-优化后图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/首页-功能栏-优化后.png?raw=true" width="400"/>
+
+#### 1.2.4,页面功能组织不合理
+
+页面功能组织不合理:样式层的页面功能组织不合理指的主要是页面功能未分类,或页面功能分类错误。
+
+页面功能未分类造成的后果是上文提到的"页面中功能太多"
+
+页面功能分类错误在样式上而言指的是使用了错误的样式,导致用户感知中的页面元素层级混乱。这一部分可以继续阅读下文:[1.4,背景色,元素色,线条,阴影之间的故事](#1.4,背景色,元素色,线条,阴影之间的故事)
+
+### 1.3,背景色,线条,阴影,元素间距之间的故事
+
+就编程而言,几乎所有的讲代码规范,重构代码的书籍,讲的都是一件事:如何组织代码。
+
+在编程中,代码组织方式有很多种,如设计模式,面向###编程,函数式编程,服务化...
+
+而对一个APP的样式层而言,组织功能的方式却只有那么几种:
+
+* 1:使用背景色
+* 2:使用线条
+* 3:使用阴影
+* 4:使用元素间隔
+
+这4种都可以用来组织功能,但是它们却有比较明显的区别。这四种方式都是通过表示元素与父元素之间的层级关系来组织功能。
+
+如下:
+
+#### 1,背景色
+
+通过背景色表示元素与父元素之间的层级关系是最自然的。
+
+例子:如下,通过元素背景色和APP背景色之间的区别将功能分为3块:
+
+<img alt="组织功能-背景色图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-背景色.png?raw=true" width="400"/>
+
+#### 2,线条
+
+线条一般用来分隔同级别元素,使页面看起来清爽整齐。此外,还可以和背景色搭配使用用来强化元素与父元素之间的层级关系。
+
+例子:线条分隔了同级别元素
+
+<img alt="组织功能-线条-1图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-线条-1.png?raw=true" width="400"/>
+
+例子:线条与背景色搭配使用,强化层级关系
+
+<img alt="组织功能-线条-2图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-线条-2.png?raw=true" width="400"/>
+
+#### 3,阴影
+
+阴影可通过实现透视效果来实现元素之间的层级关系,但阴影相比使用背景色来实现层级关系有其明显的缺点:阴影相比背景色更容易被用户感知。(用户注意力永远需要留给页面中需要用户注意力的元素)(在material design规范中,google也不建议使用阴影)
+
+例子:使用阴影表示元素之间的层级关系
+
+<img alt="组织功能-阴影图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-阴影.png?raw=true" width="400"/>
+
+例子:使用阴影表示层级关系和使用背景色表示层级关系的对比
+
+能够清晰的看到使用阴影比使用背景色更易被用户感知。
+
+使用阴影
+
+<img alt="组织功能-阴影-对比图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-阴影-对比.png?raw=true" width="400"/>
+
+使用背景色
+
+<img alt="组织功能-阴影-对比图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-阴影-对比-1.png?raw=true" width="400"/>
+
+<img alt="组织功能-阴影-对比图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-阴影-对比-2.png?raw=true" width="400"/>
+
+## 2,让APP好用起来-交互优化
+
