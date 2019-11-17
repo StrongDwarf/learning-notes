@@ -5,6 +5,8 @@
 ###### @notes 这篇文章可能会比较长,哈哈,因为给一个APP的用户体验升级涉及到的东西太多了
 ###### @notes 相比成为顶级程序员,成为顶级产品经理更吸引我
 
+###### @notes 因担心被人说泄漏源代码,全文代码全为伪代码。
+
 自从来到项目组后,经常就听到产品经理说"又被业务叼了","业务说我们的APP太丑","业务说我们的APP不好用"。每一次从产品经理口中听到这样的话,我心里都很不是滋味,一方面,作为项目组中的一员,叼产品经理不就是叼我们项目组么,不就是叼我么。另一方面,作为一个程序员,产品就像儿子,儿子好看优秀才是每个父亲最希望看到的事情,有人说儿子烂,当父亲的感觉可想而知。
 
 最近一月,在项目组开发任务终于缓了一些后,终于有时间去进行优化了。
@@ -214,26 +216,24 @@ QQ主题色:白色作为底调，淡蓝色作为主题色，给人的印象是�
 
 ### 1.3,背景色,线条,阴影,元素间距之间的故事
 
-就编程而言,几乎所有的讲代码规范,重构代码的书籍,讲的都是一件事:如何组织代码。
-
 在编程中,代码组织方式有很多种,如设计模式,面向###编程,函数式编程,服务化...
 
-而对一个APP的样式层而言,组织功能的方式却只有那么几种:
+而在APP的样式层中,组织功能的方式却只有那么几种:
 
 * 1:使用背景色
 * 2:使用线条
 * 3:使用阴影
 * 4:使用元素间隔
 
-这4种都可以用来组织功能,但是它们却有比较明显的区别。这四种方式都是通过表示元素与父元素之间的层级关系来组织功能。
+这4种都可以用来组织功能,但是它们却有比较明显的区别。
 
 如下:
 
 #### 1,背景色
 
-通过背景色表示元素与父元素之间的层级关系是最自然的。
+通过给子元素和父元素设置不同的背景色表示子元素和父元素之间的层级关系。使用背景色表示元素与父元素之间的层级关系是最自然的。
 
-例子:如下,通过元素背景色和APP背景色之间的区别将功能分为3块:
+例子:如下,设置父元素背景色为灰色,子元素背景色为白色将功能分为3块:
 
 <img alt="组织功能-背景色图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/组织功能-背景色.png?raw=true" width="400"/>
 
@@ -273,3 +273,262 @@ QQ主题色:白色作为底调，淡蓝色作为主题色，给人的印象是�
 
 ## 2,让APP好用起来-交互优化
 
+### 2.1,拼命做减法
+
+亚里士多德曾说:"自然界选择最短的道路"。在互联网时代,用户的想法更简单:你能让我少一步,我就更愿意用这个产品。
+
+### 2.2,面向产品经理的错误提示设计
+
+在交互中,错误提示是块用户体验极重的地方,但在软件开发过程中,错误提示却常常是由开发人员编写。在这种情况下,软件的错误提示则常常是与开发人员的职业素养强相关,而与产品经理弱相关的。
+
+面向产品经理的错误提示设计旨在将程序执行过程中的错误提示,全部暴露给产品经理,并可由产品经理修改错误提示信息,状态,显示时间等。
+
+#### 2.2.1,页面级错误提示设计
+
+页面级错误提示设计,在前端,创建一个UI方法,基础提示类,页面错误提示类,接口错误提示类。其各部分伪代码如下:
+
+##### 2.2.1.1,公共UI方法
+
+``` js
+// config基本配置
+let UiTypeEnums = {
+    NOTICE:     Symbol('notice ui'),
+    TOAST:      Symbol('toast'),
+    PROMPT:     Symbol('prompt'),
+    ALERT:      Symbol('alert'),
+    HEADERTIPS: Symbol('headerTips')
+}
+let uiConfig = {
+        // 错误提示的UI类型
+        uiType:{
+            type:       enum in UiTypeEnums,
+            enums:      UiTypeEnums,
+            default:    UiTypeEnums.TOAST
+        },
+        // 错误提示持续时间
+        duration:{
+            type:Number,
+            default(){
+                switch(this.uiType){
+                    case UiTypeEnums.NOTICE:
+                    case UiTypeEnums.TOAST:
+                        return 5000
+                    case UiTypeEnums.PROMPT:
+                    case UiTypeEnums.ALERT:
+                    case UiTypeEnums.HEADERTIPS:
+                        return -1
+                    default:
+                        return 5000
+                }
+            }
+        },
+        // 错误提示标题
+        title:{
+            type:String,
+            default:''
+        },
+        // 错误提示文字
+        message:{
+            type:String,
+            default:''
+        },
+        // 其他配置忽略
+        // ...
+    }
+
+/**
+ * 提示:UI方法
+ *
+ */
+exports default {
+    $Tips(uiConfig) => {
+        // 根据config在屏幕中渲染错误提示
+    },
+    UiTypeEnums
+}
+```
+
+不同的UI类型样式如下:
+
+notice:
+
+<img alt="错误提示-notice图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/错误提示-notice.png?raw=true" width="400"/>
+
+toast:
+
+<img alt="错误提示-toast图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/错误提示-toast.png?raw=true" width="400"/>
+
+alert:
+
+<img alt="错误提示-toast图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/错误提示-alert.png?raw=true" width="400"/>
+
+headerTips:
+
+<img alt="错误提示-headerTips图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/错误提示-headerTips.png?raw=true" width="400"/>
+
+##### 2.2.1.2,基础提示类
+
+基础提示类用于保存与业务逻辑无关的错误提示:客户端错误和服务端技术层错误码转换。
+
+``` js
+// 服务端错误码和对应错误提示的map
+let serverErrorCodeTipsMap = {
+    '404': {
+        uiType:     UiTypeEnums.ALERT,
+        message:    '未发现指定接口或服务,请稍后再试'
+    },
+    // ...
+}
+
+// 客户端错误和对应错误提示的map
+let clientErrorTypeTipsMap = {
+    'NETWORK_DISABLED': {
+        uiType:     UiTypeEnums.HEADERTIPS,
+        message:    '网络连接不可用'
+    },
+    // ...
+}
+
+exports default {
+
+    /**
+     * 输入客户端错误类型,输出对应的错误提示设置
+     * @param clientErrorType 客户端错误类型
+     * @return
+     */
+    clientErrorTypeTips(clientErrorType) {
+        return clientErrorTypeTipsMap[clientErrorType]
+    }
+
+    /**
+     * 输入技术层错误码,输出对应的错误提示设置
+     * @param techLevelLayerErrorCode 技术层错误码
+     * @return
+     */
+    serverErrorCodeTips(techLevelLayerErrorCode) {
+        return serverErrorCodeTipsMap[techLevelLayerErrorCode]
+    }
+}
+```
+
+##### 2.2.1.3,页面错误提示类
+
+页面错误提示类中以路由为单位保存页面中的错误提示。
+
+``` js
+let pageErrorTipsMap = [
+    {
+        path:'login',
+        children:[{
+            path:'login',
+            errorTipsMap:{
+                // 用户名或手机号为空
+                'EMPTY_USERNAME':{
+                    message: '请先输入用户名或手机号',
+                },
+                // 密码为空
+                'EMPTY_PASSWORD':{
+                    message: '请先输入密码'
+                },
+                // 密码格式错误
+                'ERROR_FORMAT_PASSWORD':{
+                    title:'输入的密码格式不正确',
+                    message: '密码必须包含数字,字母,特殊符号中的两种,且长度为8~16位',
+                    uiType: UiTypeEnums.ALERT,
+                }
+                // ...
+            }
+        }]
+    }
+]
+
+exports default {
+    /**
+     * 根据当前页面的执行上下文,获取当前页面的错误提示map
+     * @param context 执行上下文
+     * @return
+     */
+    getErrorTipsMap(context){
+        // 取context中的路由
+        // code ellipsis
+
+        // 根据路由返回指定的错误提示map
+        return errorTipsMap
+    }
+}
+```
+
+##### 2.2.1.4,接口错误提示类
+
+接口错误提示类,接口错误提示类描述每只接口的功能,并且为其指定错误提示等级和错误提示的title。
+
+``` js
+let urlErrorTipsMap = {
+    'login/login': {
+        uiType: UiTypeEnums.ALERT,
+        title:'登录失败',
+    },
+    // ... 没有这里描述的全部使用 toast类型,且无title
+}
+
+exports default {
+    getUrlErrorTips(url){
+        return urlErrorTipsMap[url]
+    }
+}
+```
+
+##### 2.2.1.5,重构HTTP方法
+
+因为项目组中只用了post方法,这里用重写post方法作为示例
+
+**重构前的post方法**:
+
+``` js
+/**
+ * 重构前的post方法
+ * @param url       post请求地址
+ * @param sendObj   post请求发送给服务器的数据
+ * @param callback  回调函数
+ */
+function post(url,sendObj,callback){
+    // ...
+}
+
+// 调用post方法的地方
+this.post('login/login',{
+    userName:'######',
+    passWord:'######'
+},(data)=>{
+    if(data.resCode != 200){
+        this.Toast(data.resMsg)
+    }
+
+    // 登录成功逻辑
+})
+```
+
+**重构后的post方法**
+
+``` js
+/**
+ * 重构后的post方法
+ * @param url       post请求地址
+ * @param sendObj   post请求发送给服务器的数据
+ * @param callback  回调函数
+ */
+function post(url,sendObj,callback){
+    // ...
+}
+
+// 调用post方法的地方
+this.post('login/login',{
+    userName:'######',
+    passWord:'######'
+},(data)=>{
+    if(data.resCode != 200){
+        this.Toast(data.resMsg)
+    }
+
+    // 登录成功逻辑
+})
