@@ -848,3 +848,59 @@ beforeRouteEnter (to, from, next) {
 
 ### 3.2,请求缓存
 
+请求缓存:即客户端将请求缓存起来,当再次调用相同请求时直接从缓存中读取。
+
+在优化APP时,为了减轻服务器压力,和产品经理讨论了后,设置了默认5分钟的请求缓存时间,而且因为当客户金额更新时,需要及时更新客户金额(此时不能缓存)。
+
+实现如下:
+
+``` js
+// 这里因为APP较小,将所有post请求返回的数据缓存在内存中也是不会有啥影响
+// 如果APP较大的话,请使用其他方式缓存数据
+let cache = new Map()
+// 用一个内部变量指向Date
+let date = Date
+
+/**
+ * 重构POST方法
+ * @param config.nonuseCache:   true:不使用缓存
+ * @param config.refreshAllCache:  true:刷新全部缓存
+ * @param config.cacheTime:     请求缓存时间:默认5分钟
+ */
+this.newPost = (url,sendObj,callback,config) => {
+    if(config.refreshAllCache){
+        cache.clear()
+    }
+
+    // 不使用缓存
+    if(config.nonuseCache){
+        this.oldPost(url,sendObj,(data)=>{
+            // 异步缓存数据
+            setTimeout((url,sendObj,data,config)=>{
+                let key = url + "&" + JSON.stringify(sendObj)
+                let value = {
+                    data:getDeepCloneObj(data)
+                }
+
+                if(config.cacheTime && typeof config.cacheTime === 'number'){
+                    value.expiryTime = date.now() + config.cacheTime
+                }else{
+                    value.expiryTime = date.now() + 300000
+                }
+
+                cache.set(key,value)
+            },0);
+
+            callback(data)
+        })
+        return
+    }
+
+    // 使用缓存
+    // 先检查有没有缓存,没有就发送请求并缓存
+    // code ellipsis
+}
+```
+
+### 3.3,sql优化
+
