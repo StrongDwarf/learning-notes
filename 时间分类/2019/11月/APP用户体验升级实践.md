@@ -285,7 +285,9 @@ QQ主题色:白色作为底调，淡蓝色作为主题色，给人的印象是�
 
 #### 2.2.1,页面级错误提示设计
 
-页面级错误提示设计,在前端,创建一个UI方法,基础提示类,页面错误提示类,接口错误提示类。其各部分伪代码如下:
+页面级错误提示设计,在前端,将错误提示UI渲染方法,接口是否执行成功逻辑判断,接口执行失败后返回怎样的错误码,页面中的错误提示等都抽取出来统一管理,统一维护。
+
+其各部分伪代码如下:
 
 ##### 2.2.1.1,公共UI方法
 
@@ -371,6 +373,11 @@ headerTips:
 基础提示类用于保存与业务逻辑无关的错误提示:客户端错误和服务端技术层错误码转换。
 
 ``` js
+/**
+ * BaseErrorTips.js
+ * @notes 用于保存与业务逻辑无关的错误提示:客户端错误和服务端技术层错误码转换。
+ */
+
 // 服务端错误码和对应错误提示的map
 let serverErrorCodeTipsMap = {
     '404': {
@@ -396,7 +403,7 @@ exports default {
      * @param clientErrorType 客户端错误类型
      * @return
      */
-    clientErrorTypeTips(clientErrorType) {
+    getClientErrorTypeTips(clientErrorType) {
         return clientErrorTypeTipsMap[clientErrorType]
     }
 
@@ -405,7 +412,7 @@ exports default {
      * @param techLevelLayerErrorCode 技术层错误码
      * @return
      */
-    serverErrorCodeTips(techLevelLayerErrorCode) {
+    getServerErrorCodeTips(techLevelLayerErrorCode) {
         return serverErrorCodeTipsMap[techLevelLayerErrorCode]
     }
 }
@@ -463,6 +470,7 @@ exports default {
 接口错误提示类,接口错误提示类描述每只接口的功能,并且为其指定错误提示等级和错误提示的title。
 
 ``` js
+// 文件名: ApiUrlErrorTips.js
 let urlErrorTipsMap = {
     'login/login': {
         uiType: UiTypeEnums.ALERT,
@@ -491,7 +499,7 @@ exports default {
  * @param sendObj   post请求发送给服务器的数据
  * @param callback  回调函数
  */
-function post(url,sendObj,callback){
+this.oldPost = function(url,sendObj,callback){
     // ...
 }
 
@@ -502,6 +510,7 @@ this.post('login/login',{
 },(data)=>{
     if(data.resCode != 200){
         this.Toast(data.resMsg)
+        // 登录失败逻辑
     }
 
     // 登录成功逻辑
@@ -515,20 +524,75 @@ this.post('login/login',{
  * 重构后的post方法
  * @param url       post请求地址
  * @param sendObj   post请求发送给服务器的数据
- * @param callback  回调函数
+ * @param succFunc  请求成功后的回调函数
+ * @param errorFunc 请求失败后的回调函数
  */
-function post(url,sendObj,callback){
-    // ...
+this.newPost = function(url,sendObj,succFunc,errorFunc) {
+    // 调用旧post方法
+    this.oldPost(url,sendObj,(data) => {
+
+        // 请求执行失败
+        if(!(data && data.resCode && data.resCode === SUCCESS_CODE)) {
+            // 渲染错误提示
+            this.printErrorTips(url,data)
+
+            // 执行回调
+            errorFunc()
+        }
+
+        // 请求执行成功
+        succFunc(data.data)
+    })
 }
 
-// 调用post方法的地方
+/**
+ * 渲染错误提示
+ * @param url post请求地址
+ * @param data 后端post返回
+ * @return 在页面中渲染一个错误提示组件
+ */
+this.printErrorTips = function(url,data){
+    // false: 表示非技术层错误，  true: 表示是技术层错误
+    let isTechLayerError = false
+
+    // 判断是否是技术层错误
+    // code ellipsis
+
+    // 从错误提示类中获取对应的错误提示config
+    let tipsConfig
+    if(isTechLayerError){
+        tipsConfig = BaseErrorTips.getServerErrorCodeTips(data.resCode)
+    } else {
+        tipsConfig =  ApiUrlErrorTips.getUrlErrorTips(url)
+    }
+
+    // 调用公共UI方法渲染错误提示组件
+    this.$Tips(tipsConfig)
+}
+```
+
+``` js
+// 调用新post方法用例
 this.post('login/login',{
     userName:'######',
     passWord:'######'
 },(data)=>{
-    if(data.resCode != 200){
-        this.Toast(data.resMsg)
-    }
-
     // 登录成功逻辑
+},()=>{
+    // 登录失败逻辑
 })
+```
+
+##### 2.2.1.6,新旧方法对比
+
+新设计与旧设计的区别:
+
+* 1:新设计将接口是否执行成功的判断逻辑抽象出来了,每只接口都和成功码(SUCCESS_CODE)强耦合
+* 2:新设计将接口执行失败后输出怎样的错误提示,也抽取出来了
+
+* 1:将接口是否执行成功的逻辑判断移到了底层,每只接口都和成功码(SUCCESS_CODE)强耦合
+* 2:将接口执行失败后输出的错误提示,
+
+#### 2.2.2,接口级错误提示设计
+
+在后端,接口级错误提示设计旨在以单只接口为单位,将所有的
