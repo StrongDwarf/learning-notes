@@ -30,7 +30,8 @@
     * [2.3.2,终点之外只有异常](#2.3.2,终点之外只有异常)
 * [3,让APP快起来-性能优化](#3,让APP快起来-性能优化)
   * [3.1,"看起来很快"比"实际很快"更重要](#3.1,"看起来很快"比"实际很快"更重要)
-  * [3.2,延迟渲染](#3.2,延迟渲染)
+    * [3.1.1,延迟渲染](#3.1.1,延迟渲染)
+    * [3.1.2,虚幻填充](#3.1.2,虚幻填充)
   * [3.3,请求缓存](#3.3,请求缓存)
   * [3.4,sql优化](#3.4,sql优化)
     * [3.4.1,使用索引](#3.4.1,使用索引)
@@ -593,6 +594,252 @@ this.post('login/login',{
 * 1:将接口是否执行成功的逻辑判断移到了底层,每只接口都和成功码(SUCCESS_CODE)强耦合
 * 2:将接口执行失败后输出的错误提示,
 
-#### 2.2.2,接口级错误提示设计
+#### 2.2.2,优化后端错误提示
 
-在后端,接口级错误提示设计旨在以单只接口为单位,将所有的
+##### 2.2.2.1,使用@Validated注解
+
+对于参数校验,可以使用@Validated注解将参数的类型限制,错误提示等和实体类绑定。
+
+@Validated注解可以在实体类中设置实体需要满足的规则,如非空,长度限制等。其使用方法如下:
+
+* 1:引入依赖
+* 2:给需要校验的实体类属性添加注解
+* 3:在@Controller中校验数据
+
+**1:引入依赖**:
+
+只需要引入spring-boot-starter-web依赖即可
+
+``` xml
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+```
+
+**2:给需要校验的实体类属性添加注释**:
+
+``` java
+public class TestVo implements Serializable {
+    private static final long serialVersionUID = -1L;
+
+    @NotBlank(message="姓名不能为空")
+    private String name;
+
+    // ...
+}
+```
+
+**3:在@Controller中校验数据**:
+
+``` java
+@Controller
+public class TestController {
+
+    @RequestMapping("/test")
+    public String test(@Validated TestVo req,BindingResult bindingResult){
+        // 如果参数有错误,返回第一个错误的提示信息
+        if(bindingResult.hasErrors()){
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                return fieldError.getDefaultMessage();
+            }
+        }
+        return "success";
+    }
+}
+```
+
+目前该框架已提供了如下这些校验规则,当然,该框架也支持自定义校验规则,不过这个请自行百度
+
+``` js
+@Null   被注释的元素必须为 null    
+@NotNull    被注释的元素必须不为 null    
+@AssertTrue     被注释的元素必须为 true    
+@AssertFalse    被注释的元素必须为 false    
+@Min(value)     被注释的元素必须是一个数字，其值必须大于等于指定的最小值    
+@Max(value)     被注释的元素必须是一个数字，其值必须小于等于指定的最大值    
+@DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值    
+@DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值    
+@Size(max=, min=)   被注释的元素的大小必须在指定的范围内    
+@Digits (integer, fraction)     被注释的元素必须是一个数字，其值必须在可接受的范围内    
+@Past   被注释的元素必须是一个过去的日期    
+@Future     被注释的元素必须是一个将来的日期    
+@Pattern(regex=,flag=)  被注释的元素必须符合指定的正则表达式    
+
+// Hibernate Validator提供的校验注解:
+@NotBlank(message =)   验证字符串非null，且长度必须大于0    
+@Email  被注释的元素必须是电子邮箱地址    
+@Length(min=,max=)  被注释的字符串的大小必须在指定的范围内    
+@NotEmpty   被注释的字符串的必须非空    
+@Range(min=,max=,message=)  被注释的元素必须在合适的范围内
+```
+
+###### 使用@Validated注解的优点在于:将接口的参数校验规则和参数校验对应的错误提示可视化
+
+##### 2.2.2.2,状态码管理
+
+对于程序执行过程中发生的所有错误,都需要明确该错误的状态码。
+
+而对于错误码,可以使用如下2级错误码进行管理。
+
+* 1:基础错误码类:管理程序运行过程中的非逻辑错误对应的错误码
+* 2:指定服务错误码类: 管理指定服务的错误码
+
+``` java
+/**
+ * 基础状态码
+ * 保存技术层状态码和提示文字
+ * 对于与HTTP协议中状态码对应的状态码定义与HTTP错误码规范相同
+ * 对于自己系统自定义的基础错误码类,使用4位长度的int类型进行定义,
+ */
+public enum BaseStatus{
+    SUCCESS     (200,"请求成功"),
+    NOT_FOUND   (404,"未发现指定接口或服务,开发人员正在修复中,可稍后再使用该功能"),
+    SERVER_ERROR(503,"服务器内部异常,开发人员正在修复中,请稍后再试"),
+
+    UNKNOWN_EXCEPTION(1001,"程序发生未知异常,开发人员正在赶来修复,请稍后再试"),
+    // ...
+}
+```
+
+``` java
+/**
+ * 指定服务的状态码
+ * 指定服务的状态码,使用6位长度的int类型进行定义,其中前两位表示服务类别
+ * 例子:商户服务状态码
+ */
+public enum MerchantStatus {
+    EMPTY_MERCHANT(010001,"商户信息为空,请检查商户号是否正确"),
+    DISABLED_MERCHANT(010002,"商户被禁用"),
+    DISABLED_MERCHANT_BY_RISK_STRAGE(010003,"商户因风险控制策略被禁用,了解风险控制策略请点击<a url='http:www.#####'>风险控制策略</a>"),
+
+    // ...
+}
+```
+
+###### 看了一些代码,很多开发者将错误提示直接以魔法数的形式写在代码中,这样在后期是很难管理的,使用状态码进行管理一是可复用,二是方便后期对错误提示进行用户体验方面的优化
+
+##### 2.2.2.3,try...catch统筹全局
+
+上面先是讲了参数校验,然后讲了状态码管理,但是在实际程序运行过程中,对用户体验影响最差的却不是错误提示写的不好,而是程序没有反应。
+
+近期在查看系统日志时候,发现许多未被捕获的异常,当前端向服务器发起一支请求时,如果程序在运行过程中发生了未被捕获的异常,那么一般情况下这支请求会被一直被挂起,在前端的表现就是一直没反应。
+
+要避免这种情况可以使用一个try...catch包住请求的全部逻辑,这样不管是怎样的异常,程序都能在最外层捕获。如下:
+
+``` java
+public ResVo func(funcVo req){
+    ResVo res = new ResVo()
+    try {
+
+        // 逻辑代码
+    } catch(Exception e) {
+        logger.error(e)
+        res.setResult(BaseStatus.UNKNOW_EXCEPTION.getCode(),BaseStatus.UNKNOW_EXCEPTION.getMessage())
+    }
+
+    return res;
+}
+```
+
+## 3,让APP快起来-性能优化
+
+在做完了APP的样式优化和交互优化后,APP已经能够称得上是一个合格的APP了,但是要想成为一个优秀的APP,除了样式要好看,交互要舒服之外,还得性能要快。
+
+### 3.1,"看起来很快"比"实际很快"更重要
+
+很多时候,在开发者看来,要想让程序跑的快,就只有性能优化这一条路,但是很多时候,可以使用一些"欺骗"用户感知的方法去让程序看起来跑的很快。
+
+对用户而言,你实际跑的快还是慢他并不关心, 他只关心它能感受到的快和慢。
+
+在程序性能不变的情况下,让用户"看起来很快"的方法有很多,这里只介绍几种容易实现的。
+
+#### 3.1.1,延迟渲染
+
+延迟渲染:在页面切换时,先执行页面数据初始化方法(多是向后端发请求),延迟一定时间再渲染页面。(延迟渲染搭配元素交互动画后效果更佳)
+
+**优化实例**:
+
+在APP优化过程中,我们APP首页有个订单流水的功能,原来点击后会直接跳转到指定页面,优化后的程序执行流程如下:
+
+点击订单流水功能 -> 异步发起获取订单流水HTTP请求 -> 执行点击动画(200ms) -> 200ms后跳转到订单流水页面。
+
+<img alt="订单流水-阴影-1图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/订单流水-阴影-1.png?raw=true" width="400"/>
+
+<img alt="订单流水-阴影-2图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/订单流水-阴影-2.png?raw=true" width="400"/>
+
+<img alt="订单流水-阴影-2图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/订单流水-阴影-3.png?raw=true" width="400"/>
+
+动画结束后跳转到订单流水页面
+
+<img alt="订单流水-阴影-1图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/订单流水-1.png?raw=true" width="400"/>
+
+###### 使用延迟渲染后,一是能够有时间向用户展示点击效果(有点击效果的按钮比无点击效果的按钮哪种用户体验更好不用解释了吧),二是相比没有延迟渲染的页面,展示给用户的页面无数据状态时间更短
+
+###### 在IOS设计规范中对动画时长的建议是不益超过300ms,所以延迟渲染的时长也不益超过300ms
+
+**vue-router快捷实现延迟渲染的方法**:
+
+vue-router提供了一些路由钩子,可以用于延迟渲染页面。
+
+``` js
+/**
+ * Vue Router文档
+ */
+const Foo = {
+  template: `...`,
+  beforeRouteEnter (to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+  },
+  beforeRouteUpdate (to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+  }
+}
+
+/**
+ * 实例:在路由变化时,先执行post方法,延迟300ms再加载
+ */
+beforeRouteEnter (to, from, next) {
+    doPost()
+
+    setTimeout(next,300)
+}
+```
+
+#### 3.1.2,虚幻填充
+
+虚幻填充:指当元素没有数据时候,给其设置无数据时的默认样式使其仿佛有数据。
+
+**优化实例**
+
+之前在优化统一收银台的时候,其页面逻辑如下:
+
+当用户刚进入页面时,页面最开始是没有数据的,显示样式如下:
+
+<img alt="统一收银台-3图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/统一收银台-3.png?raw=true" width="400"/>
+
+然后随着请求的数据返回(当用户网速慢的时),页面会在用户肉眼可见中,由上述页面变化成下面的页面。商户名称等文字都是突然出现的,极为突兀,用户体验不好。
+
+<img alt="统一收银台-2图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/统一收银台-2.png?raw=true" width="400"/>
+
+最近考虑了一下,该页面样式逻辑可以优化如下:
+
+当用户刚进入页面时,页面显示如下:
+
+<img alt="统一收银台-4图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/统一收银台-4.png?raw=true" width="400"/>
+
+当数据返回后,页面变为:
+
+<img alt="统一收银台-2图片" src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/统一收银台-2.png?raw=true" width="400"/>
