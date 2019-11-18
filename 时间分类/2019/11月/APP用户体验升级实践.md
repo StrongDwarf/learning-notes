@@ -1055,17 +1055,3 @@ router.beforeEach((to, from, next) => {
 最后,最近得知,过段时间可能会担任团队中前端开发小组组长的职责,所以**下一篇文章大概率可能是开发效能和质量提升的实践之类的文章**了,如果有好的实践也会继续分享的,哈哈,敬请期待。
 
 最后的最后, 日常吹牛:"我出手的产品, 一定会是最棒的产品","我带的团队,一定会是最棒的团队"。
-
-## 6,产品优化前后部分页面对比
-
-优化前:
-
-<video src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/优化前.mp4?raw=true" controls="controls">
-您的浏览器不支持 video 标签。
-</video>
-
-优化后:
-
-<video src="https://github.com/StrongDwarf/learning-notes/blob/master/public/img/APP用户体验升级/优化后.mp4?raw=true" controls="controls">
-您的浏览器不支持 video 标签。
-</video>
